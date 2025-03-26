@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('blog_id');
             $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
             $table->string('file_name');
+            $table->enum('image_type', ['cover', 'image1', 'image2','image3']); 
             $table->string('file_path');
             $table->timestamps();
         });

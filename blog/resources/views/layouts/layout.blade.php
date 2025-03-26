@@ -32,8 +32,8 @@
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
-        <div class="humberger__menu__logo">
-            <a href="./index.html"><img src="img/humberger/humberger-logo.png" alt=""></a>
+        <div class="humberger__menu__logo text-center">
+            <a href="./index.html"><img src="img/logo-black.png" alt=""></a>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
@@ -92,8 +92,8 @@
                     <div class="col-lg-8 col-md-10 order-md-2 order-3">
                         <nav class="header__menu">
                             <ul>
-                                <li class="active"><a href="./index.html">Home</a></li>
-                                <li><a href="#">Recipes</a>
+                                <li class="active"><a href="{{ route('index') }}">Home</a></li>
+                                <li><a href="#">Blogs</a>
                                     <div class="header__megamenu__wrapper">
                                         <div class="header__megamenu">
                                             <div class="header__megamenu__item">
@@ -149,20 +149,10 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><a href="#">Dinner</a></li>
-                                <li><a href="#">Desserts</a></li>
-                                <li class="dropdown"><a href="#">Pages</a>
-                                    <ul class="dropdown__menu">
-                                        <li><a href="./categories-grid.html">Categories Grid</a></li>
-                                        <li><a href="./categories-list.html">Categories List</a></li>
-                                        <li><a href="./single-post.html">Single Post</a></li>
-                                        <li><a href="./signin.html">Sign In</a></li>
-                                        <li><a href="./404.html">404</a></li>
-                                        <li><a href="./typography.html">Typography</a></li>
-                                    </ul>
-                                </li>
                                 <li><a href="{{ route('about') }}">About</a></li>
                                 <li><a href="{{ route('contact') }}">Contact</a></li>
+                                <li><a href="{{ route('about') }}">Sign In</a></li>
+                                <li><a href="{{ route('contact') }}">Log in</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -182,8 +172,8 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    <div class="header__logo my-0">
+                        <a href="./index.html"><img src="img/logo-mini.png" height="100px" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3">
@@ -211,7 +201,7 @@
                         <img src="img/footer/instagram-avatar.jpg" alt="">
                     </div>
                     <div class="footer__instagram__avatar--text">
-                        <h5>@ foodieblog</h5>
+                        <h5>@ mithho छ </h5>
                         <span>23,7k follower</span>
                     </div>
                 </div>
@@ -242,7 +232,7 @@
                 <div class="col-lg-12">
                     <div class="footer__text">
                         <div class="footer__logo">
-                            <a href="#"><img src="img/logo.png" alt=""></a>
+                            <a href="#"><img src="img/logo-mini.png" alt=""></a>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                             ut<br /> labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus
