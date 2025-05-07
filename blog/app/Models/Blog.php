@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -14,7 +15,26 @@ class Blog extends Model
         'title',
         'description',
         'user_id',
+        'published_at',
+        'is_published'
     ];
+
+    protected $casts=[
+        'published_at'=>'datetime',
+    ];
+
+    public function scopePublished(Builder $query)
+    {
+        return $query
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
+    }
+
+    public function isCurrentlyPublished(): bool
+    {
+        return $this->published_at && $this->published_at <= now();
+    }
+
     use SoftDeletes;
     protected $dates=['deleted_at'];
     
@@ -28,6 +48,13 @@ class Blog extends Model
 
     public function images(){
         return $this->hasMany('App\Models\Image');
+    }
+
+    public function getReadingTimeAttribute(){
+        $word_count=str_word_count(strip_tags($this->description));
+        $wordsPermin=200;
+        $readingTime=ceil($word_count/$wordsPermin);
+        return $readingTime.'min read';
     }
 
 //     public static function boot()

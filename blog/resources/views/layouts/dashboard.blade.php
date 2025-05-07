@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -14,9 +13,9 @@
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="@yield('meta_title')" />
     <meta property="og:description" content="@yield('meta_description')" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="@yield('meta_image')" />
+    <meta property="og:image" content="{{ config('app.logo') }}" />
     <meta property="og:site_name" content="Mithho छ" />
 
   <title>@yield('meta_title', 'Mithho छ')</title>
@@ -36,7 +35,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('user/css/vertical-layout-light/style.css') }}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{ asset('user/images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ config('app.logo') }}" />
   <!-- Summernote CSS -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <style>
@@ -129,10 +128,11 @@
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
-                <i class="ti-power-off text-primary"></i>
-                Logout
-              </a>
+              <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button class="dropdown-item"><i class="ti-power-off text-primary"></i>
+                Logout</button>
+              </form>
             </div>
           </li>
           <li class="nav-item nav-settings d-none d-lg-flex">
@@ -361,25 +361,24 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-               
                 <li class="nav-item"> <a class="nav-link" href="{{ route('images.create') }}">Upload Images</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('images.index') }}">See Images</a></li>
               </ul>
             </div>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">Categories</span>
+              <span class="menu-title">About Page</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('create_category') }}">Add Categories</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('categories.index') }}">Show Categories</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('about.create') }}">Add About Content</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('about.index') }}">Show About Content</a></li>
               </ul>
             </div>
-          </li> -->
+          </li>
         
         
          

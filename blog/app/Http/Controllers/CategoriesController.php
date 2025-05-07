@@ -14,7 +14,7 @@ class CategoriesController extends Controller
     {
             // return view('food_blog.categories-list');
             $categories=Category::all();
-            return view('user.categories.index', compact('categories'))->with('meta_title','CATEGORIES');
+            return view('categories.index', compact('categories'))->with('meta_title','CATEGORIES');
     }
 
     /**
@@ -22,7 +22,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('user.categories.create')->with('meta_title','Create Categories');
+        return view('categories.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class CategoriesController extends Controller
 
         $category->name=$request->title;
         $category->save();
-        return redirect()->route('create_category');
+        return redirect()->route('create_category')->with('success','Category Created Successfully !!!');
     }
 
     /**
@@ -54,7 +54,7 @@ class CategoriesController extends Controller
     public function edit(string $id)
     {
         $category=Category::findorFail($id);
-        return view('user.categories.edit',compact('category'))->with('meta_title','$category->name');
+        return view('categories.edit',compact('category'))->with('meta_title','$category->name');
     }
 
     /**
@@ -69,7 +69,7 @@ class CategoriesController extends Controller
 
         $category->name=$request->title;
         $category->save();
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success','Category Updated Successfully !!!');
     }
 
     /**
@@ -79,6 +79,6 @@ class CategoriesController extends Controller
     {
         $category=Category::findorFail($id);
         $category->delete();
-        return redirect()->route('categories');
+        return redirect()->route('categories')->with('success','Category Deleted');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -16,10 +17,11 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $path='uploads';
+        $user=Auth::id();
+        $path='uploads/'.$user;
         $images=Storage::disk('public')->directories($path);
         $blogs=Blog::all();
-        return view('user.images.show',compact('blogs','images'))->with('meta_title','Image Folders');
+        return view('images.show',compact('blogs','images'))->with('meta_title','Image Folders');
     }
 
     /**
@@ -27,9 +29,8 @@ class ImageController extends Controller
      */
     public function create()
     {
-        $images = Image::latest()->get();
         $blogs=Blog::all();
-        return view('user.images.create', compact('images','blogs'))->with('meta_title','Upload Image'); 
+        return view('images.create', compact('blogs'))->with('meta_title','Upload Image'); 
     }
 
     /**
@@ -43,18 +44,17 @@ class ImageController extends Controller
             'image_type' => 'required|in:cover,image1,image2,image3', // Validate image type
         ]);
 
+
         $blog=Blog::findorFail($request->blog_id);
+        $user=$blog->user->id;
         $blogname=Str::slug($blog->title)?:'untitled';
         // Loop through all images and save them
             $image=$request->image;
             $file_name=time().Str::slug($image->getClientOriginalName());
 
 // Ensure the directory exists using File facade
-            Storage::disk('public')->makeDirectory("uploads/$blogname");
-
-            $filePath = $image->storeAs("uploads/$blogname",$file_name,'public');
-            
-
+            Storage::disk('public')->makeDirectory("uploads/$user/$blogname");
+            $filePath = $image->storeAs("uploads/$user/$blogname",$file_name,'public');
             // Create a new image entry in the database
             Image::create([
 
@@ -64,9 +64,7 @@ class ImageController extends Controller
                 'file_path' => $filePath,
             ]);
 
-            session()->flash('success','Image Uploaded Successfully');
-            
-            return redirect()->route('images.create');
+            return redirect()->route('images.create')->with('success','Image Uploaded Successfully');
     
 }
 
@@ -75,10 +73,11 @@ class ImageController extends Controller
      */
     public function show(string $id)
     {
-        $path="uploads/$id";
+        $path=Str::replace('_','/',$id);
         // $images=Storage::disk('public')->directories($path);
-        $images=Storage::disk('public')->files($path);
-        return view('user.images.showfiles',compact('images'))->with('meta_title',$id);
+        $images=Storage::disk('public')->files($path); 
+        $image_name=Str::replace('uploads/'.Auth::id().'/','',$path);
+        return view('images.showfiles',compact('images'))->with('meta_title',$image_name);
     }
 
     /**
@@ -89,7 +88,7 @@ class ImageController extends Controller
         $path=str_replace('_','/',$id);
         $image = Image::where('file_path',$path)->first();
         $blogs=Blog::all();
-        return view('user.images.edit', compact('image','blogs'))->with('meta_title',$image->file_name)->with('meta_image',asset('storage/'.$image->file_path));
+        return view('images.edit', compact('image','blogs'))->with('meta_title',$image->file_name)->with('meta_image',asset('storage/'.$image->file_path));
     }
 
     /**
@@ -110,17 +109,19 @@ class ImageController extends Controller
         if (Storage::disk('public')->exists($image->file_path)) {
             Storage::disk('public')->delete($image->file_path);
         }
+
         $blog=Blog::findorFail($request->blog_id);
         $blogname=Str::slug($blog->title)?:'untitled';
+
+        $user=Auth::id();
         // Loop through all images and save them
             $image=$request->image;
             $file_name=time().Str::slug($image->getClientOriginalName());
 
 // Ensure the directory exists using File facade
-            Storage::disk('public')->makeDirectory("uploads/$blogname");
+            Storage::disk('public')->makeDirectory("uploads/$user/$blogname");
 
-            $filePath = $image->storeAs("uploads/$blogname",$file_name,'public');
-            
+            $filePath = $image->storeAs("uploads/$user/$blogname",$file_name,'public');
             $image=Image::findorFail($id);
             // Create a new image entry in the database
 
@@ -129,10 +130,7 @@ class ImageController extends Controller
                 $image->file_name= $file_name;
                 $image->file_path = $filePath;
                 $image->save();
-
-            session()->flash('success','Image Data edited Successfully');
-            
-            return redirect()->route('images.index');
+                return redirect()->route('images.index')->with('success','Image Data edited Successfully');
     }
 
     /**
@@ -140,9 +138,7 @@ class ImageController extends Controller
      */
     public function destroy(string $id)
     {
-        $path=str_replace('_','/',$id);
-        
-        $image = Image::where('file_path',$path)->first();
+        $image=Image::findorFail($id);
         if (Storage::disk('public')->exists($image->file_path)) {
             Storage::disk('public')->delete($image->file_path);
         }

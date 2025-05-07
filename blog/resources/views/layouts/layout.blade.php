@@ -3,16 +3,31 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Foodeiblog Template">
-    <meta name="keywords" content="Foodeiblog, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Foodeiblog | Template</title>
+
+    <!-- Dynamic meta data -->
+    <meta name="title" content="@yield('meta_title')">
+    <meta name="description" content="@yield('meta_description')">
+    <meta name="keywords" content="blog, food, recipes">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="@yield('meta_title')" />
+    <meta property="og:description" content="@yield('meta_description')" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:image" content="@yield('meta_image')" />
+    <meta property="og:site_name" content="{{ config('app.name') }}" />
+
+    <title>{{ config('app.name') }}</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Unna:400,700&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -35,6 +50,7 @@
         <div class="humberger__menu__logo text-center">
             <a href="./index.html"><img src="img/logo-black.png" alt=""></a>
         </div>
+        
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li><a href="{{ route('index') }}">Home</a></li>

@@ -3,168 +3,81 @@
 <!-- Hero Section Begin -->
 <section class="hero">
         <div class="hero__slider owl-carousel">
+        @foreach($slides as $slide)
             <div class="hero__item">
                 <div class="container-fluid">
                     <div class="row">
+                        @foreach($slide['main'] as $mainBlog)
                         <div class="col-lg-6 p-0">
                             <div class="hero__inside__item hero__inside__item--wide set-bg"
-                                data-setbg="img/hero/hero-1.jpg">
+                                data-setbg="{{ $mainBlog->images()->first() ? asset('storage/' . $mainBlog->images()->first()->file_path) : asset('favicon.ico') }}">
                                 <div class="hero__inside__item__text">
                                     <div class="hero__inside__item--meta">
-                                        <span>08</span>
-                                        <p>Aug</p>
+                                    <span>{{ $mainBlog->created_at->format('j') }}</span>
+                                    <p>{{ $mainBlog->created_at->format('F') }}</p>
                                     </div>
                                     <div class="hero__inside__item--text">
-                                        <ul class="label">
-                                            <li>Vegan</li>
-                                            <li>Desserts</li>
-                                        </ul>
-                                        <h4>Vegan White Peach Mug Cobbler With CardamomVegan<br /> White Peach Mug
-                                            Cobbler With Cardamom</h4>
+                                        <!-- <ul class="label">
+                                            @foreach($mainBlog->categories as $category)
+                                            <li>{{ $category->name }}</li>
+                                            @endforeach
+                                        </ul> -->
+                                        <h4>{{ $mainBlog->title }}</h4>
                                         <ul class="widget">
-                                            <li>by <span>Admin</span></li>
-                                            <li>3 min read</li>
+                                            <li>by <span>{{ $mainBlog->user->name }}</span></li>
+                                            <li>{{ $mainBlog->reading_time }}</li>
                                             <li>20 Comment</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                         <div class="col-lg-3 col-md-6  p-0">
+                        @foreach($slide['small'] as $smblog)
                             <div class="hero__inside__item hero__inside__item--small set-bg"
-                                data-setbg="img/hero/hero-2.jpg">
+                                data-setbg="{{ $smblog->images()->first() ? asset('storage/' . $smblog->images()->first()->file_path) : 'Image' }}">
                                 <div class="hero__inside__item__text">
                                     <div class="hero__inside__item--meta">
-                                        <span>08</span>
-                                        <p>Aug</p>
+                                    <span>{{ $smblog->created_at->format('j') }}</span>
+                                    <p>{{ $smblog->created_at->format('F') }}</p>
                                     </div>
                                     <div class="hero__inside__item--text">
-                                        <ul class="label">
-                                            <li>Vegan</li>
-                                            <li>Desserts</li>
-                                        </ul>
-                                        <h5>How to Make a Milkshake With Any <br />Ice Cream, Any Toppings...</h5>
+                                        <!-- <ul class="label">
+                                        @foreach($smblog->categories as $category)
+                                            <li>{{ $category->name }}</li>
+                                            @endforeach
+                                        </ul> -->
+                                        <h5>{{ $smblog->title }}</h5>
                                     </div>
                                 </div>
                             </div>
-                            <div class="hero__inside__item hero__inside__item--small set-bg"
-                                data-setbg="img/hero/hero-3.jpg">
+                            @endforeach
+                        </div>
+                        @foreach($slide['long'] as $longBlog)
+                        <div class="col-lg-3 col-md-6  p-0">
+                            <div class="hero__inside__item set-bg" data-setbg="{{ $longBlog->images()->first() ? asset('storage/' . $longBlog->images()->first()->file_path) : 'Image' }}">
                                 <div class="hero__inside__item__text">
                                     <div class="hero__inside__item--meta">
-                                        <span>08</span>
-                                        <p>Aug</p>
+                                        <span>{{ $longBlog->created_at->format('j') }}</span>
+                                        <p>{{ $longBlog->created_at->format('F') }}</p>
                                     </div>
                                     <div class="hero__inside__item--text">
-                                        <ul class="label">
-                                            <li>Vegan</li>
-                                            <li>Desserts</li>
-                                        </ul>
-                                        <h5>Vintage Copper Preserve Pan with <br />Brass Handles, Mid 19th Century</h5>
+                                        <!-- <ul class="label">
+                                        @foreach($longBlog->categories as $category)
+                                            <li>{{ $category->name }}</li>
+                                            @endforeach
+                                        </ul> -->
+                                        <h5>{{ $longBlog->title }}</h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6  p-0">
-                            <div class="hero__inside__item set-bg" data-setbg="img/hero/hero-4.jpg">
-                                <div class="hero__inside__item__text">
-                                    <div class="hero__inside__item--meta">
-                                        <span>08</span>
-                                        <p>Aug</p>
-                                    </div>
-                                    <div class="hero__inside__item--text">
-                                        <ul class="label">
-                                            <li>Vegan</li>
-                                            <li>Desserts</li>
-                                        </ul>
-                                        <h5>Marinated Lentil Salad with Zucch <br />ini and Tomatoes</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
-            <div class="hero__item">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-6 p-0">
-                            <div class="hero__inside__item hero__inside__item--wide set-bg"
-                                data-setbg="img/hero/hero-1.jpg">
-                                <div class="hero__inside__item__text">
-                                    <div class="hero__inside__item--meta">
-                                        <span>08</span>
-                                        <p>Aug</p>
-                                    </div>
-                                    <div class="hero__inside__item--text">
-                                        <ul class="label">
-                                            <li>Vegan</li>
-                                            <li>Desserts</li>
-                                        </ul>
-                                        <h4>Vegan White Peach Mug Cobbler With CardamomVegan<br /> White Peach Mug
-                                            Cobbler With Cardamom</h4>
-                                        <ul class="widget">
-                                            <li>by <span>Admin</span></li>
-                                            <li>3 min read</li>
-                                            <li>20 Comment</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 p-0">
-                            <div class="hero__inside__item hero__inside__item--small set-bg"
-                                data-setbg="img/hero/hero-3.jpg">
-                                <div class="hero__inside__item__text">
-                                    <div class="hero__inside__item--meta">
-                                        <span>08</span>
-                                        <p>Aug</p>
-                                    </div>
-                                    <div class="hero__inside__item--text">
-                                        <ul class="label">
-                                            <li>Vegan</li>
-                                            <li>Desserts</li>
-                                        </ul>
-                                        <h5>How to Make a Milkshake With Any <br />Ice Cream, Any Toppings...</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="hero__inside__item hero__inside__item--small set-bg"
-                                data-setbg="img/hero/hero-2.jpg">
-                                <div class="hero__inside__item__text">
-                                    <div class="hero__inside__item--meta">
-                                        <span>08</span>
-                                        <p>Aug</p>
-                                    </div>
-                                    <div class="hero__inside__item--text">
-                                        <ul class="label">
-                                            <li>Vegan</li>
-                                            <li>Desserts</li>
-                                        </ul>
-                                        <h5>Vintage Copper Preserve Pan with <br />Brass Handles, Mid 19th Century</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 p-0">
-                            <div class="hero__inside__item set-bg" data-setbg="img/hero/hero-4.jpg">
-                                <div class="hero__inside__item__text">
-                                    <div class="hero__inside__item--meta">
-                                        <span>08</span>
-                                        <p>Aug</p>
-                                    </div>
-                                    <div class="hero__inside__item--text">
-                                        <ul class="label">
-                                            <li>Vegan</li>
-                                            <li>Desserts</li>
-                                        </ul>
-                                        <h5>Marinated Lentil Salad with Zucch <br />ini and Tomatoes</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
     <!-- Hero Section End -->
@@ -224,7 +137,7 @@
                                     <li>Vegan</li>
                                     <li>Desserts</li>
                                 </ul>
-                                <h3><a href="#">The Absolute Best Way to Cook Steak Perfectly, According to Wayyy Too
+                                <h3><a href="{{ route('singlepost') }}">The Absolute Best Way to Cook Steak Perfectly, According to Wayyy Too
                                         Many Tests</a></h3>
                                 <ul class="post__widget">
                                     <li>by <span>Admin</span></li>

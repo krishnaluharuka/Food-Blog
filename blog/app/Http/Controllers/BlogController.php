@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -13,12 +14,11 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-
-     
+    
     public function index()
     {
         $blogs=Blog::all();
-        return view('user.blogs.show', compact('blogs'))->with('meta_title','BLOGS');
+        return view('blogs.show', compact('blogs'))->with('meta_title','BLOGS');
     }
 
     /**
@@ -31,10 +31,10 @@ class BlogController extends Controller
         if($categories->count() == 0){
             session()->flash('info','To create a blog you must have category');
             
-            return view('user.categories.create')->with('meta_title','Create CATEGORIES');;
+            return view('categories.create')->with('meta_title','Create CATEGORIES');;
         }
 
-        return view('user.blogs.create', compact('categories'))->with('meta_title','Create BLOGS');
+        return view('blogs.create', compact('categories'))->with('meta_title','Create BLOGS');
     }
 
     /**
@@ -48,15 +48,19 @@ class BlogController extends Controller
             'content'=>'required',
             'category_id' => 'required|array', // Ensure an array of category IDs is submitted
             'category_id.*' => 'exists:categories,id', 
+            'date' => 'nullable|date|after_or_equal:today',
+            'time' => 'nullable|date_format:H:i',
         ]);
 
+        $publishedAt = Carbon::createFromFormat('Y-m-d H:i',$request->publish_date . ' ' .     $request->publish_time);
 
         $blog->title=$request->title;
         $blog->description=strip_tags(str_replace('&nbsp;',' ',$request->content));
         $blog->user_id=Auth::id();
+        $blog->published_at = $publishedAt;
         $blog->save();
         $blog->categories()->sync($request->category_id);
-        return redirect()->route('blogs.create');
+        return redirect()->route('blogs.create')->with('success','Blog created successfully');
     }
 
     /**
@@ -64,7 +68,10 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-       
+        $blog = Blog::findOrFail($id);
+        // View count badhaune
+        $blog->increment('views');
+        return view('blogs.show', compact('blog'));
     }
 
     /**
@@ -74,7 +81,7 @@ class BlogController extends Controller
     {
         $blog=Blog::with('categories')->findorFail($id);
         $categories=Category::all();
-        return view('user.blogs.edit',compact('blog','categories'))->with('meta_title',$blog->title)->with('meta_description',$blog->description);
+        return view('blogs.edit',compact('blog','categories'))->with('meta_title',$blog->title)->with('meta_description',$blog->description);
     }
 
     /**
@@ -87,14 +94,29 @@ class BlogController extends Controller
             'title'=>'required|min:3',
             'content'=>'required',
             'category_id' => 'required|array', // Ensure an array of category IDs is submitted
-            'category_id.*' => 'exists:categories,id', 
+            'category_id.*' => 'exists:categories,id',
+            'date' => $blog->isCurrentlyPublished() ? 'nullable' : 'required|date|after_or_equal:today',
+            'time' => $blog->isCurrentlyPublished() ? 'nullable' : 'required|date_format:H:i',
         ]);
+
+
+        if ($blog->isCurrentlyPublished()) {
+            $publishedAt=$blog->published_at;
+        }elseif ($request->publish_date && $request->publish_time) {
+            $publishedAt = Carbon::createFromFormat(
+                'Y-m-d H:i',
+                $request->publish_date . ' ' . $request->publish_time
+            );
+        }
 
         $blog->title=$request->title;
         $blog->description=strip_tags(str_replace('&nbsp;',' ',$request->content));
         $blog->user_id=Auth::id();
+        // $blog->published_at = $publishedAt;
+        $blog->is_published= (bool) $request->is_published;
         $blog->save();
-        return redirect()->route('blogs.index');
+        $blog->categories()->sync($request->category_id);
+        return redirect()->route('blogs.index')->with('success','Blog edited successfully');
     }
 
     /**
@@ -109,7 +131,7 @@ class BlogController extends Controller
 
     public function trashed(){
         $trashedBlogs = Blog::onlyTrashed()->get(); 
-        return view('user.blogs.trash',compact('trashedBlogs'))->with('meta_title','TRASHED BLOGS');
+        return view('blogs.trash',compact('trashedBlogs'))->with('meta_title','TRASHED BLOGS');
     }
 
     public function restore($id)

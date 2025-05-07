@@ -235,6 +235,17 @@
                                 </ul>
                             </div>
                         </div>
+
+                        <div id="fb-root"></div>
+                        <script async defer crossorigin="anonymous"
+                        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0" nonce="xyz"></script>
+
+                        <div class="fb-comments" 
+                            data-href="{{ url()->current() }}" 
+                            data-width="100%" 
+                            data-numposts="5">
+                        </div>
+
                         <div class="single-post__comment__item">
                             <div class="single-post__comment__item__pic">
                                 <img src="img/categories/single-post/comment/comment-3.jpg" alt="">

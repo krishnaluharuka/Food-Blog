@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     public function blogs(){
-        return $this->hasMany('App\Models\Blog');
+        return $this->belongsToMany('App\Models\Blog');
     }
 
     use SoftDeletes;

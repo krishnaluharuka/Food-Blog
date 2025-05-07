@@ -14,9 +14,9 @@ class User
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $role): Response
     {
-        if (Auth::user()->role != 'user') {
+        if (Auth::user()->role != $role) {
             return redirect()->route('index');
         }
 
