@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -17,7 +16,14 @@ class BlogController extends Controller
     
     public function index()
     {
-        $blogs=Blog::all();
+        if(Auth::user()->role === 'admin')
+        {
+            $blogs=Blog::all();
+        }
+        else{
+            $blogs=Blog::where('user_id',Auth::id())->get();
+        }
+
         return view('blogs.show', compact('blogs'))->with('meta_title','BLOGS');
     }
 
@@ -48,14 +54,15 @@ class BlogController extends Controller
             'content'=>'required',
             'category_id' => 'required|array', // Ensure an array of category IDs is submitted
             'category_id.*' => 'exists:categories,id', 
-            'date' => 'nullable|date|after_or_equal:today',
-            'time' => 'nullable|date_format:H:i',
+            'date' => 'required|date|after_or_equal:today',
+            'time' => 'required|date_format:H:i',
         ]);
 
-        $publishedAt = Carbon::createFromFormat('Y-m-d H:i',$request->publish_date . ' ' .     $request->publish_time);
+        $publishedAt = Carbon::createFromFormat('Y-m-d H:i',$request->date . ' ' .     $request->time);
 
         $blog->title=$request->title;
-        $blog->description=strip_tags(str_replace('&nbsp;',' ',$request->content));
+        // $blog->description=strip_tags(str_replace('&nbsp;',' ',$request->content));
+        $blog->description=$request->content;
         $blog->user_id=Auth::id();
         $blog->published_at = $publishedAt;
         $blog->save();
@@ -102,18 +109,19 @@ class BlogController extends Controller
 
         if ($blog->isCurrentlyPublished()) {
             $publishedAt=$blog->published_at;
-        }elseif ($request->publish_date && $request->publish_time) {
+        }elseif ($request->date && $request->time) {
             $publishedAt = Carbon::createFromFormat(
                 'Y-m-d H:i',
-                $request->publish_date . ' ' . $request->publish_time
+                $request->date . ' ' . $request->time
             );
         }
 
         $blog->title=$request->title;
-        $blog->description=strip_tags(str_replace('&nbsp;',' ',$request->content));
+        // $blog->description=strip_tags(str_replace('&nbsp;',' ',$request->content));
+        $blog->description=$request->content;
         $blog->user_id=Auth::id();
-        // $blog->published_at = $publishedAt;
-        $blog->is_published= (bool) $request->is_published;
+        $blog->published_at = $publishedAt;
+        //$blog->is_published= (bool) $request->is_published;
         $blog->save();
         $blog->categories()->sync($request->category_id);
         return redirect()->route('blogs.index')->with('success','Blog edited successfully');
@@ -130,7 +138,12 @@ class BlogController extends Controller
     }
 
     public function trashed(){
-        $trashedBlogs = Blog::onlyTrashed()->get(); 
+        if(Auth::user()->role==='admin'){
+            $trashedBlogs = Blog::onlyTrashed()->get();
+        } 
+        else{
+            $trashedBlogs=Blog::onlyTrashed()->where('user_id',Auth::id())->get();
+        }
         return view('blogs.trash',compact('trashedBlogs'))->with('meta_title','TRASHED BLOGS');
     }
 

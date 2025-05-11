@@ -13,16 +13,7 @@ return new class extends Migration
     {
         Schema::create('abouts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('logo');
-            $table->string('contact');
-            $table->string('email');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('fb_link')->nullable();
-            $table->string('whatsapp_link')->nullable();
-            $table->string('viber_link')->nullable();
-            $table->string('insta_link')->nullable();
+            $table->string('image');
             $table->text('content');
             $table->timestamps();
         });

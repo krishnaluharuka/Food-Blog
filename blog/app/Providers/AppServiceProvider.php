@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\About;
 use App\Models\Website;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -36,8 +37,14 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
 
-            View::composer('layouts.admin_dashboard', function ($view) {
+            View::composer('*', function ($view) {
                 $view->with('authUser', Auth::user());
             });
+
+            $website = Website::first();
+            View::share('website', $website);
+
+            $about=About::first();
+            View::share('about',$about);
     }
 }

@@ -33,7 +33,7 @@ class WebsiteController extends Controller
         $website=new Website;
         $request->validate([
             'title'=>'min:3|required',
-            'image'=>'required|image|dimensions:min_width=200,min_height=100',
+            'image'=>'required|image|dimensions:min_width=100,min_height=100',
             'contact'=>'required|numeric|digits:10',
             'email'=>'required|email',
             'fb_link'=>'nullable|url',
@@ -83,7 +83,7 @@ class WebsiteController extends Controller
         $website=Website::first();
         $request->validate([
             'title'=>'min:3|required',
-            'image'=>'required|image|dimensions:min_width=200,min_height=100',
+            'image'=>'required|image|dimensions:min_width=100,min_height=100',
             'contact'=>'required|numeric|digits:10',
             'email'=>'required|email',
             'fb_link'=>'nullable|url',

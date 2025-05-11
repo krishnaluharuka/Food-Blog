@@ -12,17 +12,15 @@ use Illuminate\Support\Facades\Http;
 class AdminController extends Controller
 {
     public function index(){
-        $website=Website::first();
         $user=Auth::user();
         $response = Http::get('http://ip-api.com/json/')->json();
-        return view('admin.dashboard.index',compact('website','user','response'));
+        return view('admin.dashboard.index',compact('user','response'));
     }
 
     public function edit(Request $request)
     {
         $user=$request->user();
-        $website=website::first();
-        return view('admin.profile.edit', compact('user','website'));
+        return view('admin.profile.edit', compact('user'));
     }
 
     public function update(ProfileUpdateRequest $request)
@@ -35,7 +33,7 @@ class AdminController extends Controller
 
         $request->user()->save();
 
-        return redirect()->route('admin.edit')->with('success', 'Profile update');
+        return redirect()->route('admin.edit')->with('success', 'Profile updated');
     }
 
     /**

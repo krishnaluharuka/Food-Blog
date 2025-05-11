@@ -35,6 +35,13 @@
     <link rel="stylesheet" href="{{ asset('blog/css/nice-select.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('blog/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('blog/css/style.css') }}" type="text/css">
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/elegant-icons.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
 </head>
 
 <body>
@@ -52,11 +59,19 @@
                         <li class="logo">
                         <a href="{{ route('index') }}"><img src="{{ config('app.logo') }}" alt=""></a></li>
                         <li class="{{Request::routeIs('index')? 'active':''}}"><a href="{{ route('index') }}">Home</a></li>
-                        <li class="{{Request::routeIs('blog_page')? 'active':''}}"><a href="{{ route('blog_page') }}">Blog</a></li>
-                        <li class="{{Request::routeIs('recipe')? 'active':''}}"><a href="">Recipes</a></li>
-                        <li class="{{Request::routeIs('about')? 'active':''}}"><a href="">About Me</a></li>
+                        <li class="{{Request::routeIs('blog_page')? 'active':''}}"><a href="{{ route('blog_page') }}">Blogs</a></li>
+                        <li class="{{Request::routeIs('about_page')? 'active':''}}"><a href="{{ route('about_page') }}">About Me</a></li>
                         <!-- <li><a href="categories.html">Categories</a></li> -->
-                        <li class="{{Request::routeIs('contact')? 'active':''}}"><a href="">Contact</a></li>
+                        <li class="{{Request::routeIs('contact')? 'active':''}}"><a href="{{ route('contact') }}">Contact</a></li>
+                        @if(!Auth::user())
+                        <li class="{{Request::routeIs('register')? 'active':''}}"><a href="{{ route('register') }}">Signup</a></li>
+                        @else
+                            @if($authUser->role==='admin')
+                                <li class="{{Request::routeIs('admin_dashboard')? 'active':''}}"><a href="{{ route('admin_dashboard') }}">Profile</a></li>
+                            @elseif($authUser->role==='user')
+                                <li class="{{Request::routeIs('user_dashboard')? 'active':''}}"><a href="{{ route('user_dashboard') }}">Profile</a></li>
+                            @endif
+                        @endif
                     </ul>
                     <div class="nav-right search-switch"><i class="fa fa-search"></i></div>
                 </nav>
@@ -77,13 +92,13 @@
     <!-- Categories Filter Section Begin -->
         @yield('categories-filter-section')
     <!-- Categories Filter Section End -->
-
+     
         @yield('main')
     <!-- Feature Recipe Section Begin -->
-    <section class="feature-recipe">
+    <!-- <section class="feature-recipe">
        
         
-    </section>
+    </section> -->
     <!-- Feature Recipe Section End -->
 
     <!-- Footer Section Begin -->

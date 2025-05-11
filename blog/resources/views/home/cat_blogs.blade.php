@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8">
                     <div class="row">
-                        @foreach($blogs as $blog)
+                        @foreach($blogss as $blog)
                         <div class="col-lg-6 col-sm-6">
                             <div class="categories__post__item">
                                 <div class="categories__post__item__pic smaller__large set-bg"
@@ -44,13 +44,15 @@
                                         style="width: 150px; height: 150px;">
                                 </div>
                                 <div class="card border border-0">
-                                    <div class="card-body">
-                                        @php
-                                            $abt=\Illuminate\Support\Str::words($about->content,40,'...');
-                                        @endphp
-                                        <p class="text-muted">{!! $abt !!}</p>
-                                        <a href="{{ route('about_page') }}" class="btn btn-dark mt-2">Read more</a>
-                                    </div>
+                                    <h6>
+                                        
+                                    </h6>
+                                    
+                                    <p class="text-muted">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    </p>
+                                    
+                                    <a href="#" class="btn btn-primary mt-2">Read more</a>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +73,7 @@
                                 <h6>Categories</h6>
                             </div>
                             <ul>
-                                @foreach($categories as $cat)
+                                @foreach($categoriess as $cat)
                                 <li><a href="{{ route('cat_blog',$cat->name) }}">{{ $cat->name }}<span>{{ $cat->blogs()->count() }}</span></a></li>
                                 @endforeach
                             </ul>

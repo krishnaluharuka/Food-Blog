@@ -17,6 +17,7 @@ class User
     public function handle(Request $request, Closure $next, $role): Response
     {
         if (Auth::user()->role != $role) {
+            echo "Hello";
             return redirect()->route('index');
         }
 

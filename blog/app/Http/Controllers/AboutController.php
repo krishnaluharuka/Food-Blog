@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AboutController extends Controller
 {
@@ -14,12 +12,7 @@ class AboutController extends Controller
      */
     public function index()
     {
-       $about=About::all();
-       $user_id=$about->user_id;
-       $user=User::findorFail($user_id);
-       if($user->role=='admin'){
-    }
-
+        //
     }
 
     /**
@@ -27,7 +20,7 @@ class AboutController extends Controller
      */
     public function create()
     {
-        return view('user.about.create')->with('meta_title','About Website');
+        return view('admin.about.create');
     }
 
     /**
@@ -35,36 +28,20 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        $about=new About();
         $request->validate([
-            'title'=>'min:3|required',
-            'image'=>'required|image',
-            'contact'=>'required|numeric|digits:10',
-            'email'=>'required|email',
-            'fb_link'=>'nullable|url',
-            'viber_link'=>'nullable|url',
-            'whatsapp_link'=>'nullable|url',
-            'insta_link'=>'nullable|url',
+            'image'=>'image|required',
             'content'=>'required',
         ]);
 
-        $about->title=$request->title;
-        $about->content=strip_tags(str_replace('&nbsp;',' ',$request->content));
-        $about->contact=$request->contact;
-        $about->email=$request->email;
-        $about->fb_link=$request->fb_link;
-        $about->whatsapp_link=$request->whatsapp_link;
-        $about->viber_link=$request->viber_link;
-        $about->insta_link=$request->insta_link;
-        $about->user_id=Auth::id();
+        $about=new About();
 
         $image=$request->image;
         $file_name=$image->getClientOriginalName();
         $filePath = $image->storeAs("uploads",$file_name,'public');
-        $about->logo=$filePath;
-        $about->save();
+        $about->image=$filePath;
 
-        return redirect()->route('about.create');
+        $about->content=$request->content;
+        $about->save();
     }
 
     /**
@@ -72,7 +49,7 @@ class AboutController extends Controller
      */
     public function show(About $about)
     {
-        
+        //
     }
 
     /**
@@ -81,6 +58,29 @@ class AboutController extends Controller
     public function edit(About $about)
     {
         //
+    }
+
+    public function editAbout(){
+        $about=About::first();
+        return view('admin.about.edit',compact('about'));
+    }
+
+    public function updateAbout(Request $request){
+        $request->validate([
+            'image'=>'image|required',
+            'content'=>'required',
+        ]);
+
+        $about=About::first();
+
+        $image=$request->image;
+        $file_name=$image->getClientOriginalName();
+        $filePath = $image->storeAs("uploads",$file_name,'public');
+        $about->image=$filePath;
+
+        $about->content=$request->content;
+        $about->save();
+        return redirect()->back()->with('success','About Content Updated Successfully');
     }
 
     /**

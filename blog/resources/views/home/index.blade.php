@@ -14,7 +14,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 order-lg-1">
+                <!-- <div class="col-lg-3 col-md-6 order-lg-1">
                     @foreach($first as $fst)
                     <div class="pt-recipe-item">
                         <div class="pt-recipe-img set-bg" data-setbg="{{ $fst->images()->first() ?asset('storage/'.$fst->images()->first()->file_path):asset('favicon.ico') }}">
@@ -25,8 +25,8 @@
                         </div>
                     </div>
                     @endforeach
-                </div>
-                <div class="col-lg-3 col-md-6 order-lg-3">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 order-lg-3">
                     @foreach($second as $sec)
                     <div class="pt-recipe-item">
                         <div class="pt-recipe-img set-bg" data-setbg="{{ $sec->images()->first() ?asset('storage/'.$sec->images()->first()->file_path):asset('favicon.ico') }}">
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     @endforeach
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -65,7 +65,7 @@
                             <a href="#">
                                 <h4>{{ $top_blog->title }}</h4>
                             </a>
-                            <p>{{ $top_blog->description }}</p>
+                            <p>{!! \Illuminate\Support\Str::limit($top_blog->description,150,'...') !!}</p>
                         </div>
                     </div>
                 </div>
@@ -80,13 +80,13 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="top-recipe-text">
-                                    @foreach($blog->categories->random(3) as $cat)
+                                    @foreach($blog->categories as $cat)
                                     <div class="cat-name">{{ $cat->name }}</div>
                                     @endforeach
                                     <a href="#">
                                         <h4>{{ $blog->title }}</h4>
                                     </a>
-                                    <p>{{ $blog->description }}</p>
+                                    <p>{!! \Illuminate\Support\Str::limit($blog->description,115,'...') !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                 <div class="col-lg-12 text-center">
                     <div class="filter-item">
                         <ul>
-                            <li class="active" data-filter="*">Food</li>
+                            <li class="active" data-filter="*">All</li>
                             @foreach ($categories as $category)
                                 <li data-filter=".{{ Str::slug($category->name) }}">{{ $category->name }}</li>
                             @endforeach

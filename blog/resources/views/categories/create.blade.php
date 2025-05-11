@@ -1,4 +1,4 @@
-@extends(Auth::user()->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.user_dashboard')
+@extends($authUser->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.dashboard')
 @section('meta_title', 'Categories')
 @section('content')
     <div class="panel panel-default">

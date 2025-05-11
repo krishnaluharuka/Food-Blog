@@ -1,4 +1,4 @@
-@extends(Auth::user()->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.user_dashboard')
+@extends($authUser->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.dashboard')
 @section('meta_title', $blog->title)
 @section('meta_description', $blog->description)
 @section('content')
@@ -76,6 +76,7 @@
             </div>
             </form>
         </div>
+    </div>
     </div>
 </div>
 @endsection

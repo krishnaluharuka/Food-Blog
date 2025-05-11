@@ -1,84 +1,35 @@
-@extends('layouts.dashboard')
-@section('meta_title', 'About Website')
+@extends('layouts.admin_dashboard')
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading text-center">
-            Create About content
+            About content
         </div>
         <div class="panel-body">
-            <form method="post" enctype="multipart/form-data">
+            <form action="{{ route('about.updateAbout') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
+                @method('PUT')
+
                 <div class="form-group">
-                <label for="title">Website Title</label>
-                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ $about->title }}">
-                    @error('title')
+                    <label for="content">Content</label>
+                    <textarea id="content" name="content" class="form-control @error('content') is-invalid @enderror">{{ old('content',$about->content) }}</textarea>
+                    @error('content')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="form-group">
-                <label for="image">Select Image</label>
-                <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
+                <div class="d-flex align-item-center">
+                    <div class="w-75">
+                    <label for="image">Select Image</label>
+                    <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
+                    </div>
+                <img src="{{ asset('storage/'.$about->image) }}" alt="image" class="w-25" height="125px">
+                </div>
                 @error('image')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="contact">Contact</label>
-                        <input type="text" name="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ $about->contact }}">
-                        @error('contact')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $about->email }}">
-                        @error('email')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fb_link">Facebook Link</label>
-                        <input type="url" name="fb_link" value="{{ $about->fb_link }}" class="form-control @error('fb_link') is-invalid @enderror">
-                        @error('fb_link')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fb_link">Whatsapp Link</label>
-                        <input type="url" name="whatsapp_link" value="{{ $about->whatsapp_link }}" class="form-control @error('whatsapp_link') is-invalid @enderror">
-                        @error('whatsapp_link')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="viber_link">Viber Link</label>
-                        <input type="url" name="viber_link" value="{{ $about->viber_link }}" class="form-control @error('viber_link') is-invalid @enderror">
-                        @error('viber_link')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="insta_link">Instagram Link</label>
-                        <input type="url" name="insta_link" value="{{ $about->insta_link }}" class="form-control @error('insta_link') is-invalid @enderror">
-                        @error('insta_link')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                <div class="form-group">
-                    <label for="content">Content</label>
-                    <textarea id="content" name="content" class="form-control @error('content') is-invalid @enderror">{{ $about->content }}</textarea>
-                    @error('content')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
                 
                 <div class="form-group">
                     <div class="text-center">

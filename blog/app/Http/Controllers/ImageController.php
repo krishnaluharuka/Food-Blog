@@ -29,7 +29,13 @@ class ImageController extends Controller
      */
     public function create()
     {
-        $blogs=Blog::all();
+        if(Auth::user()->role === 'admin')
+        {
+            $blogs=Blog::all();
+        }
+        else{
+            $blogs=Blog::where('user_id',Auth::id())->get();
+        }
         return view('images.create', compact('blogs'))->with('meta_title','Upload Image'); 
     }
 

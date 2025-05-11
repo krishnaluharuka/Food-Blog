@@ -1,4 +1,4 @@
-@extends(Auth::user()->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.user_dashboard')
+@extends($authUser->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.dashboard')
 @section('meta_title',$image->file_name)
 @section('meta_image',asset('storage/'.$image->file_path))
 @section('content')

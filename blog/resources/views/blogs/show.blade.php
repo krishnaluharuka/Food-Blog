@@ -1,4 +1,4 @@
-@extends(Auth::user()->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.user_dashboard')
+@extends($authUser->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.dashboard')
 @section('meta_title', 'Blogs')
 @section('content')
 <div class="panel panel-default">
@@ -11,6 +11,9 @@
             </a>
     </div><br>
     <div class="panel-body">
+    @if($blogs->isEmpty())
+            <p>No blogs available.</p>
+    @else
     <table class="table table-responsive table-hover">
         <thead>
             <th>S.N.</th>
@@ -26,7 +29,7 @@
         
             <td>{{ $n++ }}</td>
             <td>{{ $blog->title }}</td>
-            <td><a href="{{ route('blogs.show',$blog->id) }}"  class="text-decoration-none text-dark">{{ \Illuminate\Support\Str::limit($blog->description,43,'...') }}</a></td>
+            <td><a href="{{ route('blogs.show',$blog->id) }}"  class="text-decoration-none text-dark">{{ strip_tags(\Illuminate\Support\Str::limit($blog->description,43,'...')) }}</a></td>
             <td>@if ($blog->isCurrentlyPublished())
                     <span class="badge badge-success">Published</span>
                 @else
@@ -43,6 +46,7 @@
         </tbody>
         @endforeach
     </table>
+    @endif
     </div>
 </div>
 @endsection

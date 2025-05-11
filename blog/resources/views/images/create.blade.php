@@ -1,4 +1,4 @@
-@extends(Auth::user()->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.user_dashboard')
+@extends($authUser->role === 'admin' ? 'layouts.admin_dashboard' : 'layouts.dashboard')
 @section('meta_title','Upload Image')
 @section('content')
 <div class="container">
@@ -43,5 +43,6 @@
             <button type="submit" class="btn btn-primary">Upload Image</button>
         </form>
     </div>
+</div>
 
 @endsection

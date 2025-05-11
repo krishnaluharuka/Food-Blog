@@ -9,7 +9,7 @@
   <!-- Dynamic meta data -->
   <meta name="title" content="@yield('meta_title')">
     <meta name="description" content="@yield('meta_description')">
-    <meta name="keywords" content="blog, food, recipes">
+    <meta name="keywords" content="blog">
 
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="@yield('meta_title')" />
@@ -378,7 +378,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>
               <span class="menu-title">About Page</span>
@@ -386,11 +386,11 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('about.create') }}">Add About Content</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('about.editAbout') }}">Add About Content</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('about.index') }}">Show About Content</a></li>
               </ul>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="icon-head menu-icon"></i>
@@ -403,6 +403,12 @@
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
               </ul>
             </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('about.editAbout') }}">
+              <i class="bi bi-file-person menu-icon"></i>
+              <span class="menu-title">About Content</span>
+            </a>
           </li> 
           <li class="nav-item">
             <a class="nav-link" href="{{ route('website.editWebsite') }}">
@@ -422,12 +428,12 @@
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+          <div class="d-flex justify-content-center">
+            <span class="text-muted text-center d-blockk"><a href="https://github.com/krishnaluharuka" target="_blank"> © Krishna Luharuka</a> </span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><i class="ti-heart text-danger ml-1"></i></span>
           </div>
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Distributed by <a href="https://www.themewagon.com/" target="_blank">Themewagon</a></span> 
+            <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Distributed by <a href="https://www.themewagon.com/" target="_blank"></a></span>  -->
           </div>
         </footer> 
         <!-- partial -->
