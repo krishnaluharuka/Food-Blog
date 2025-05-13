@@ -57,9 +57,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="viber_link">Viber Link</label>
-                        <input type="url" name="viber_link" value="{{ old('viber_link') }}" class="form-control @error('viber_link') is-invalid @enderror">
-                        @error('viber_link')
+                        <label for="pinterest_link">pinterest Link</label>
+                        <input type="url" name="pinterest_link" value="{{ old('pinterest_link') }}" class="form-control @error('pinterest_link') is-invalid @enderror">
+                        @error('pinterest_link')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>

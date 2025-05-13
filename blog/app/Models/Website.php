@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Website extends Model
 {
+    use HasFactory;
+    
     protected $fillable=[
         'website_title',
         'logo',
@@ -13,7 +16,7 @@ class Website extends Model
         'email',
         'fb_link',
         'whatsapp_link',
-        'viber_Link',
+        'pinterest_Link',
         'insta_Link',
     ];
 

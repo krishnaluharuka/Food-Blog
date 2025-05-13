@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,8 +16,10 @@ class HomeController extends Controller
         $main =$blogs->slice(0, 1);
         $first=$blogs->slice(1,2);
         $second=$blogs->slice(3,2);
-        $top_dishes=$categories->where('name','Top Blog')->first();
-        $top_blog=$top_dishes->blogs()->published()->get()->random();
+        $top_blogs = Blog::has('images')->published()->mostViewed(5)->get();
+        $top_dishes=$top_blogs->slice(1,4);
+        // $top_blog=$top_dishes->blogs()->published()->get()->random();
+        $top_blog=$top_blogs->first();
         return view('home.index',compact('blogs','first','main','second','categories','top_dishes','top_blog'));
     }
 
@@ -41,7 +44,11 @@ class HomeController extends Controller
         return view('home.contact');
     }
 
-    public function singlepost(){
-        return view('food_blog.single-post');
+    public function singlepost(string $id){
+        $blog=Blog::with(['categories','images','user'])->findOrFail($id);
+        $blog->increment('views');
+        $previous = Blog::with('categories')->where('id', '<', $blog->id)->orderBy('id', 'desc')->first();
+        $next = Blog::with('categories')->where('id', '>', $blog->id)->orderBy('id', 'asc')->first();
+        return view('home.single_post',compact('blog','previous','next'));
     }
 }

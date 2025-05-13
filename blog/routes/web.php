@@ -38,7 +38,7 @@ Route::get('category/{category:name}',[HomeController::class,'category'])->name(
 
 Route::get('about_page',[HomeController::class,'about'])->name('about_page');
 
-Route::get('singlepost',[HomeController::class,'singlepost'])->name('singlepost');
+Route::get('singlepost/{id}',[HomeController::class,'singlepost'])->name('singlepost');
 
 Route::get('contact',[HomeController::class,'contact'])->name('contact');
 

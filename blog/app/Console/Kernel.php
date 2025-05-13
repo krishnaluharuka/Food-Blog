@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -16,7 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Register your scheduled command here
-        $schedule->command('images:cleanup')->everyTenMinutes();  // You can change frequency
+        $schedule->command('images:cleanup')->everyMinute();  // You can change frequency
     }
 
     /**

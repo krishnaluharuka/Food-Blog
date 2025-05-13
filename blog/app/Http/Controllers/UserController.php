@@ -26,7 +26,13 @@ class UserController extends Controller
         if($request->user()->isDirty('email')){
             $request->user()->email_verified_at=null;
         }
+
+        $image=$request->user()->image;
+        $file_name=$image->getClientOriginalName();
+        $filePath = $image->storeAs("uploads/".$request->user()->id,$file_name,'public');
+        $request->user()->image=$filePath;
         $request->user()->save();
+        
         return redirect()->route('user.edit')->with('success','Profile Updated');
     }
 

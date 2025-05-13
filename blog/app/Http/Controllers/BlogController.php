@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Services\BlogServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -13,15 +14,22 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
+
+    protected $blogservice;
+
+    public function __construct(BlogServices $blogservice)
+    {
+        $this->blogservice=$blogservice;
+    }
+
     public function index()
     {
         if(Auth::user()->role === 'admin')
         {
-            $blogs=Blog::all();
+            $blogs=$this->blogservice->getAllBlogs();
         }
         else{
-            $blogs=Blog::where('user_id',Auth::id())->get();
+            $blogs=$this->blogservice->getAllBlogs()->where('user_id',Auth::id())->get();
         }
 
         return view('blogs.show', compact('blogs'))->with('meta_title','BLOGS');
@@ -33,7 +41,6 @@ class BlogController extends Controller
     public function create()
     {
         $categories = Category::all(); 
-
         if($categories->count() == 0){
             session()->flash('info','To create a blog you must have category');
             
@@ -76,8 +83,6 @@ class BlogController extends Controller
     public function show(string $id)
     {
         $blog = Blog::findOrFail($id);
-        // View count badhaune
-        $blog->increment('views');
         return view('blogs.show', compact('blog'));
     }
 
@@ -148,19 +153,18 @@ class BlogController extends Controller
     }
 
     public function restore($id)
-{
+    {
     $blog = Blog::withTrashed()->findOrFail($id); // Retrieve even soft-deleted blogs
-
     // Restore the soft-deleted blog
     $blog->restore();
-
     return redirect()->route('blogs.trashed')->with('success', 'Blog restored successfully.');
-}
+    }
 
 
     public function forceDelete($id)
 {
     $blog = Blog::withTrashed()->findOrFail($id);
+    $blog->categories()->detach();
     $blog->forceDelete();
     return redirect()->route('blogs.trashed')->with('success', 'Blog permanently deleted.');
 }

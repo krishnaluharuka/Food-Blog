@@ -39,20 +39,19 @@ class CleanupImagesCommand extends Command
         }else{
             foreach($oldBlogs as $blog){
                 foreach($blog->images as $image){
-                    $filePath = 'public/uploads/' . $image->file_path; // Adjust path as necessary
-                    if (Storage::exists($filePath)) {
-                        Storage::delete($filePath);
-                        $this->info("Deleted image: {$image->file_path}");
+
+                    if (Storage::disk('public')->exists($image->file_path)) {
+                        Storage::disk('public')->delete($image->file_path);
                     }
 
                     $image->delete();
                 }
 
-                $blogname=Str::slug($blog->title)?:'untitled';
-                $folder_path="uploads/$blogname";
+                $blogfolder=Str::slug($blog->title) ? : 'untitled';
+                $path='uploads/'.$blog->user_id.'/'.$blogfolder;
 
-                if (Storage::disk('public')->exists($folder_path)) {
-                    Storage::disk('public')->deleteDirectory($folder_path);
+                if (Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->deleteDirectory($path);
                 }
 
                 $blog->delete();
@@ -68,20 +67,25 @@ class CleanupImagesCommand extends Command
         }
 
         foreach ($unusedImages as $image) {
+
+             if (Storage::disk('public')->exists($image->file_path)) {
+                        Storage::disk('public')->delete($image->file_path);
+                    }
+
+                    $image->delete();
             // Delete image from storage
-            $blog_id=$image->blog_id();
-            $blog=Blog::findorFail($blog_id);
-            $blogname=Str::slug($blog->title)?:'untitled';
-            $folder_path="uploads/$blogname";
 
-            $filePath = 'public/uploads/' . $image->file_path; // Adjust path as necessary
-            if (Storage::exists($filePath)) {
-                Storage::delete($filePath);
-                $this->info("Deleted image: {$image->file_path}");
-            }
+            // $filePath = 'public/storage/' . $image->file_path; // Adjust path as necessary
+            // Storage::disk('public')->delete($image->file_path);
+            // if (Storage::exists($filePath)) {
+            //     Storage::delete($filePath);
+            //     $this->info("Deleted image: {$image->file_path}");
+            // }
 
-            if (Storage::disk('public')->exists($folder_path)) {
-                Storage::disk('public')->deleteDirectory($folder_path);
+            $folderPath=dirname($image->file_path);
+            $allFiles=Storage::disk('public')->files($folderPath);
+            if (empty($allFiles)) {
+                Storage::disk('public')->deleteDirectory($folderPath);
             }
 
             //delete data from database

@@ -9,18 +9,18 @@
                         <div class="col-lg-6 col-sm-6">
                             <div class="categories__post__item">
                                 <div class="categories__post__item__pic smaller__large set-bg"
-                                    data-setbg="{{ $blog->images()->first() ?asset('storage/'.$blog->images()->first()->file_path):asset('favicon.ico') }}">
+                                    data-setbg="{{ $blog->images()->first() ?asset('storage/'.$blog->images()->first()->file_path):asset('blogg.jpeg') }}">
                                     <div class="post__meta">
-                                        <h4>08</h4>
-                                        <span>Aug</span>
+                                        <h4>{{ $blog->published_at->format('d') }}</h4>
+                                        <span>{{ $blog->published_at->format('M') }}</span>
                                     </div>
                                 </div>
                                 <div class="categories__post__item__text">
                                     <!-- <span class="post__label">Dinner</span> -->
-                                    <h3><b><a href="#">{{ $blog->title }}</a></b></h3>
+                                    <h3><b><a href="{{ asset('singlepost',$blog->id) }}">{{ $blog->title }}</a></b></h3>
                                     <ul class="post__widget">
                                         <li>by <span>{{ $blog->user->name }}</span></li>
-                                        <li>3 min read</li>
+                                        <li>{{ $blog->getReadingTimeAttribute() }}</li>
                                         <li>20 Comment</li>
                                     </ul>
                                     <p>{!! \Illuminate\Support\Str::limit($blog->description,115,'...') !!}</p>
@@ -38,7 +38,7 @@
                                     <img 
                                         src="{{ App\Models\User::where('role','admin')->first() 
                                             ? asset('storage/' . App\Models\User::where('role','admin')->first()->image) 
-                                            : asset('favicon.ico') }}" 
+                                            : asset('person.jpeg') }}" 
                                         alt="Admin Image" 
                                         class="rounded-circle mx-auto d-block" 
                                         style="width: 150px; height: 150px;">

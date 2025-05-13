@@ -37,7 +37,7 @@ class WebsiteController extends Controller
             'contact'=>'required|numeric|digits:10',
             'email'=>'required|email',
             'fb_link'=>'nullable|url',
-            'viber_link'=>'nullable|url',
+            'pinterest_link'=>'nullable|url',
             'whatsapp_link'=>'nullable|url',
             'insta_link'=>'nullable|url',
         ]);
@@ -47,7 +47,7 @@ class WebsiteController extends Controller
         $website->email=$request->email;
         $website->fb_link=$request->fb_link;
         $website->whatsapp_link=$request->whatsapp_link;
-        $website->viber_link=$request->viber_link;
+        $website->piterest_link=$request->pinterest_link;
         $website->insta_link=$request->insta_link;
 
         $image=$request->image;
@@ -87,7 +87,7 @@ class WebsiteController extends Controller
             'contact'=>'required|numeric|digits:10',
             'email'=>'required|email',
             'fb_link'=>'nullable|url',
-            'viber_link'=>'nullable|url',
+            'pinterest_link'=>'nullable|url',
             'whatsapp_link'=>'nullable|url',
             'insta_link'=>'nullable|url',
         ]);
@@ -97,7 +97,7 @@ class WebsiteController extends Controller
         $website->email=$request->email;
         $website->fb_link=$request->fb_link;
         $website->whatsapp_link=$request->whatsapp_link;
-        $website->viber_link=$request->viber_link;
+        $website->pinterest_link=$request->pinterest_link;
         $website->insta_link=$request->insta_link;
 
         $image=$request->image;

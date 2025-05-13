@@ -38,6 +38,10 @@
   <link rel="shortcut icon" href="{{ config('app.logo') }}" />
   <!-- Summernote CSS -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+<!-- toastr css link -->
+  <link href="{{ asset('user/css/toastr.min.css') }}" rel="stylesheet"/>
+  <!-- end toastr css link -->
 <style>
   .hover-effect:hover{
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -478,6 +482,10 @@
 <!-- Summernote JS -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
+<!-- toastr link -->
+<script src="{{ asset('user/js/toastr.min.js') }}"></script>
+<!-- toastr link end -->
+
 <script>
     $(document).ready(function() {
         $('#content').summernote({
@@ -492,6 +500,25 @@
         });
     });
 </script>
+
+<script>
+    @if(Session::has('success'))
+        toastr.success('{{ Session::get('success') }}');
+    @endif
+
+    @if(Session::has('error'))
+        toastr.error('{{ Session::get('error') }}');
+    @endif
+
+    @if(Session::has('info'))
+        toastr.info('{{ Session::get('info') }}');
+    @endif
+
+    @if(Session::has('warning'))
+        toastr.warning('{{ Session::get('warning') }}');
+    @endif
+</script>
+
 </body>
 
 </html>

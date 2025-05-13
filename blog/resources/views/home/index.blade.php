@@ -14,7 +14,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-lg-3 col-md-6 order-lg-1">
+                <div class="col-lg-3 col-md-6 order-lg-1">
                     @foreach($first as $fst)
                     <div class="pt-recipe-item">
                         <div class="pt-recipe-img set-bg" data-setbg="{{ $fst->images()->first() ?asset('storage/'.$fst->images()->first()->file_path):asset('favicon.ico') }}">
@@ -25,8 +25,8 @@
                         </div>
                     </div>
                     @endforeach
-                </div> -->
-                <!-- <div class="col-lg-3 col-md-6 order-lg-3">
+                </div>
+                <div class="col-lg-3 col-md-6 order-lg-3">
                     @foreach($second as $sec)
                     <div class="pt-recipe-item">
                         <div class="pt-recipe-img set-bg" data-setbg="{{ $sec->images()->first() ?asset('storage/'.$sec->images()->first()->file_path):asset('favicon.ico') }}">
@@ -37,32 +37,34 @@
                         </div>
                     </div>
                     @endforeach
-                </div> -->
+                </div>
             </div>
         </div>
     </section>
 @endsection
 
+
+
 @section('top-recipe')
     <section class="top-recipe spad">
         <div class="section-title">
-            <h5>Top Dishes</h5>
+            <h5>Top Blogs</h5>
         </div>
         <div class="container po-relative">
             <div class="plus-icon">
-                <i class="fa fa-cutlery"></i>
+                <i class="fa fa-moon-o"></i>
             </div>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="top-recipe-item large-item">
-                        <div class="top-recipe-img set-bg" data-setbg="{{ $top_blog->images()->first() ? asset('storage/'.$top_blog->images()->first()->file_path):asset('favicon.ico') }}">
+                        <div class="top-recipe-img set-bg" data-setbg="{{ $top_blog->images()->first() ? asset('storage/'.$top_blog->images()->first()->file_path) : asset('blogg.jpeg') }}">
                             <i class="fa fa-plus"></i>
                         </div>
                         <div class="top-recipe-text">
                              @foreach($top_blog->categories as $cat)
                                 <div class="cat-name">{{ $cat->name }}</div>
                              @endforeach
-                            <a href="#">
+                            <a href="{{ route('singlepost',$top_blog->id) }}">
                                 <h4>{{ $top_blog->title }}</h4>
                             </a>
                             <p>{!! \Illuminate\Support\Str::limit($top_blog->description,150,'...') !!}</p>
@@ -70,11 +72,11 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    @foreach($top_dishes->blogs()->published()->get() as $blog)
+                    @foreach($top_dishes as $blog)
                     <div class="top-recipe-item">
                         <div class="row">
                             <div class="col-sm-4">
-                                <div class="top-recipe-img set-bg" data-setbg="{{ $blog->images()->first() ? asset('storage/'.$blog->images()->first()->file_path):asset('favicon.ico') }}">
+                                <div class="top-recipe-img set-bg" data-setbg="{{ $blog->images()->first() ? asset('storage/'.$blog->images()->first()->file_path) : asset('blogg.jpeg') }}">
                                     <i class="fa fa-plus"></i>
                                 </div>
                             </div>
@@ -83,7 +85,7 @@
                                     @foreach($blog->categories as $cat)
                                     <div class="cat-name">{{ $cat->name }}</div>
                                     @endforeach
-                                    <a href="#">
+                                    <a href="{{ route('singlepost',$blog->id) }}">
                                         <h4>{{ $blog->title }}</h4>
                                     </a>
                                     <p>{!! \Illuminate\Support\Str::limit($blog->description,115,'...') !!}</p>
@@ -136,3 +138,5 @@
         </div>
     </div>
     @endsection
+
+

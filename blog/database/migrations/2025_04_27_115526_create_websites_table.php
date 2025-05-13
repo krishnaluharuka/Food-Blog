@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('fb_link')->nullable();
             $table->string('whatsapp_link')->nullable();
-            $table->string('viber_link')->nullable();
+            $table->string('pinterest_link')->nullable();
             $table->string('insta_link')->nullable();
             $table->timestamps();
         });

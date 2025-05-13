@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Blog extends Model
 {
+    use HasFactory;
 
     protected $fillable=[
         'title',
@@ -55,6 +57,11 @@ class Blog extends Model
         $wordsPermin=200;
         $readingTime=ceil($word_count/$wordsPermin);
         return $readingTime.'min read';
+    }
+
+    public function scopeMostViewed($query)
+    {
+        return $query->orderBy('views', 'desc')->limit(5);
     }
 
 //     public static function boot()
