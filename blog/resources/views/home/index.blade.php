@@ -64,7 +64,7 @@
                              @foreach($top_blog->categories as $cat)
                                 <div class="cat-name">{{ $cat->name }}</div>
                              @endforeach
-                            <a href="{{ route('singlepost',$top_blog->id) }}">
+                            <a href="{{ route('singlepost',$top_blog->slug) }}">
                                 <h4>{{ $top_blog->title }}</h4>
                             </a>
                             <p>{!! \Illuminate\Support\Str::limit($top_blog->description,150,'...') !!}</p>
@@ -85,7 +85,7 @@
                                     @foreach($blog->categories as $cat)
                                     <div class="cat-name">{{ $cat->name }}</div>
                                     @endforeach
-                                    <a href="{{ route('singlepost',$blog->id) }}">
+                                    <a href="{{ route('singlepost',$blog->slug) }}">
                                         <h4>{{ $blog->title }}</h4>
                                     </a>
                                     <p>{!! \Illuminate\Support\Str::limit($blog->description,115,'...') !!}</p>

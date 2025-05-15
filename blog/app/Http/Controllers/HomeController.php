@@ -44,8 +44,8 @@ class HomeController extends Controller
         return view('home.contact');
     }
 
-    public function singlepost(string $id){
-        $blog=Blog::with(['categories','images','user'])->findOrFail($id);
+    public function singlepost($slug){
+        $blog=Blog::with(['categories','images','user'])->where('slug',$slug)->firstorFail();
         $blog->increment('views');
         $previous = Blog::with('categories')->where('id', '<', $blog->id)->orderBy('id', 'desc')->first();
         $next = Blog::with('categories')->where('id', '>', $blog->id)->orderBy('id', 'asc')->first();

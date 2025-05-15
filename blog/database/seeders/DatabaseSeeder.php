@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin Billu',
             'email' => 'admin@gmail.com',
             'password'=>'admin12345',
-            'role'=>'admin',
             'image'=>'https://ui-avatars.com/api/?name=Krishna+Dev',
         ]);
 

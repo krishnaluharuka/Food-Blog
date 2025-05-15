@@ -72,7 +72,7 @@
                             </div>
                             <ul>
                                 @foreach($categories as $cat)
-                                <li><a href="{{ route('cat_blog',$cat->name) }}">{{ $cat->name }}<span>{{ $cat->blogs()->count() }}</span></a></li>
+                                <li><a href="{{ route('cat_blog',$cat->slug) }}">{{ $cat->name }}<span>{{ $cat->blogs()->count() }}</span></a></li>
                                 @endforeach
                             </ul>
                         </div>

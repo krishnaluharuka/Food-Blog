@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoriesController extends Controller
 {
@@ -12,9 +13,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-            // return view('food_blog.categories-list');
-            $categories=Category::all();
-            return view('categories.index', compact('categories'))->with('meta_title','CATEGORIES');
+        // return view('food_blog.categories-list');
+        $categories=Category::all();
+        return view('categories.index', compact('categories'))->with('meta_title','CATEGORIES');
     }
 
     /**
@@ -36,6 +37,7 @@ class CategoriesController extends Controller
         ]);
 
         $category->name=$request->title;
+        $category->slug=Str::slug($request->title);
         $category->save();
         return redirect()->route('create_category')->with('success','Category Created Successfully !!!');
     }
@@ -68,6 +70,7 @@ class CategoriesController extends Controller
         ]);
 
         $category->name=$request->title;
+        $category->slug=Str::slug($request->title);
         $category->save();
         return redirect()->route('categories.index')->with('success','Category Updated Successfully !!!');
     }

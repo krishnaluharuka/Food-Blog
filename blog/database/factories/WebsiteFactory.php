@@ -22,14 +22,14 @@ class WebsiteFactory extends Factory
     {
 
         return [
-            'website_title'=>fake()->name(),
-            'logo'=>fake()->imageUrl(),
-            'contact'=>fake()->phoneNumber(),
-            'email'=>fake()->email(),
-            'fb_link'=>fake()->url(),
-            'whatsapp_link'=>fake()->url(),
-            'pinterest_Link'=>fake()->url(),
-            'insta_Link'=>fake()->url(),
+            'website_title'=>$this->faker->name(),
+            'logo'=>$this->faker->imageUrl(),
+            'contact'=>$this->faker->phoneNumber(),
+            'email'=>$this->faker->email(),
+            'fb_link'=>$this->faker->url(),
+            'whatsapp_link'=>$this->faker->url(),
+            'pinterest_Link'=>$this->faker->url(),
+            'insta_Link'=>$this->faker->url(),
         ];
     }
 }

@@ -140,16 +140,16 @@
         <div class="card card-tale">
           <div class="card-body">
             <p class="mb-4">No. of Blogs</p>
-            <p class="fs-30 mb-2">100</p>
-            <p>ll</p>
+            <!-- <p class="fs-30 mb-2">{{ $authUser->blogs()->count() }}</p> -->
+            <p></p>
           </div>
         </div>
       </div>
       <div class="col-md-6 mb-4 stretch-card transparent">
         <div class="card card-dark-blue">
           <div class="card-body">
-            <p class="mb-4">No. of Users</p>
-            <p class="fs-30 mb-2"></p>
+            <p class="mb-4">No. of Trashed Blogs</p>
+            <!-- <p class="fs-30 mb-2">{{ $authUser->blogs()->onlyTrashed()->count() }}</p> -->
             <p></p>
           </div>
         </div>
@@ -159,8 +159,8 @@
       <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
         <div class="card card-light-blue">
           <div class="card-body">
-            <p class="mb-4">Total Categories</p>
-            <p class="fs-30 mb-2"></p>
+            <p class="mb-4">Recent Blogs</p>
+            <p class="fs-30 mb-2">hhh</p>
             <p></p>
           </div>
         </div>
@@ -168,8 +168,8 @@
       <div class="col-md-6 stretch-card transparent">
         <div class="card card-light-danger">
           <div class="card-body">
-            <p class="mb-4"></p>
-            <p class="fs-30 mb-2">47033</p>
+            <p class="mb-4">bbbb</p>
+            <p class="fs-30 mb-2">jjjj</p>
             <p></p>
           </div>
         </div>

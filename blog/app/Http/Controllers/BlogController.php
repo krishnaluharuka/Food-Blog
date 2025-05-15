@@ -7,6 +7,7 @@ use App\Services\BlogServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 
 class BlogController extends Controller
@@ -29,7 +30,7 @@ class BlogController extends Controller
             $blogs=$this->blogservice->getAllBlogs();
         }
         else{
-            $blogs=$this->blogservice->getAllBlogs()->where('user_id',Auth::id())->get();
+            $blogs=$this->blogservice->getAllBlogs()->where('user_id',Auth::id());
         }
 
         return view('blogs.show', compact('blogs'))->with('meta_title','BLOGS');
@@ -69,6 +70,7 @@ class BlogController extends Controller
 
         $blog->title=$request->title;
         // $blog->description=strip_tags(str_replace('&nbsp;',' ',$request->content));
+        $blog->slug=Str::slug($request->title);
         $blog->description=$request->content;
         $blog->user_id=Auth::id();
         $blog->published_at = $publishedAt;
@@ -123,6 +125,7 @@ class BlogController extends Controller
 
         $blog->title=$request->title;
         // $blog->description=strip_tags(str_replace('&nbsp;',' ',$request->content));
+        $blog->slug=Str::slug($request->title);
         $blog->description=$request->content;
         $blog->user_id=Auth::id();
         $blog->published_at = $publishedAt;
@@ -162,10 +165,10 @@ class BlogController extends Controller
 
 
     public function forceDelete($id)
-{
+    {
     $blog = Blog::withTrashed()->findOrFail($id);
     $blog->categories()->detach();
     $blog->forceDelete();
     return redirect()->route('blogs.trashed')->with('success', 'Blog permanently deleted.');
-}
+    }
 }

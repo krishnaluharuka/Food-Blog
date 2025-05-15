@@ -143,14 +143,14 @@
                     </div> -->
                     <div class="single-post__tags">
                         @foreach($blog->categories as $cat)
-                        <a href="{{ route('cat_blog',$cat->name) }}">{{ $cat->name }}</a>
+                        <a href="{{ route('cat_blog',$cat->slug) }}">{{ $cat->name }}</a>
                         @endforeach
                     </div>
                     <div class="single-post__next__previous">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 @if($previous)
-                                <a href="{{ route('singlepost',$previous->id ) }}" class="single-post__previous">
+                                <a href="{{ route('singlepost',$previous->slug ) }}" class="single-post__previous">
                                     <h6><span class="arrow_carrot-left"></span> Previous posts</h6>
                                     <div class="single-post__previous__meta">
                                         <h4>{{ $previous->published_at->format('d') }}</h4>
@@ -164,7 +164,8 @@
                                  @endif
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                <a href="{{ route('singlepost',$next->id) }}" class="single-post__next">
+                                @if($next)
+                                <a href="{{ route('singlepost',$next->slug) }}" class="single-post__next">
                                     <h6>Next posts <span class="arrow_carrot-right"></span> </h6>
                                     <div class="single-post__next__meta">
                                         <h4>{{ $next->published_at->format('d') }}</h4>
@@ -175,6 +176,7 @@
                                         <h5>{{ \Illuminate\Support\Str::limit($next->title, 50, ) }}</h5>
                                     </div>
                                 </a>
+                                @endif
                             </div>
                         </div>
                     </div>

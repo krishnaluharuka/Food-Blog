@@ -23,9 +23,9 @@ class ImageFactory extends Factory
     {
         return [
         'blog_id'=>\App\Models\Blog::inRandomOrder()->value('id'),
-        'image_type'=>fake()->randomElement(['cover', 'image1', 'image2', 'image3']), 
-        'file_name'=>fake()->name(),
-        'file_path'=>fake()->imageUrl(),
+        'image_type'=>$this->faker->randomElement(['cover', 'image1', 'image2', 'image3']), 
+        'file_name'=>$this->faker->name(),
+        'file_path'=>$this->faker->imageUrl(),
         ];
     }
 }

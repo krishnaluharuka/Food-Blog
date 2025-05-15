@@ -21,8 +21,8 @@ class AboutFactory extends Factory
     public function definition(): array
     {
         return [
-            'image'=>fake()->imageUrl(),
-            'content'=>fake()->paragraph(),    
+            'image'=>$this->faker->imageUrl(),
+            'content'=>$this->faker->paragraph(),    
         ];
     }
 }

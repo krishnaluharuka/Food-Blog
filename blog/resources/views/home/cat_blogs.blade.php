@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="categories__post__item__text">
                                     <!-- <span class="post__label">Dinner</span> -->
-                                    <h3><b><a href="{{ asset('singlepost',$blog->id) }}">{{ $blog->title }}</a></b></h3>
+                                    <h3><b><a href="{{ asset('singlepost',$blog->slug) }}">{{ $blog->title }}</a></b></h3>
                                     <ul class="post__widget">
                                         <li>by <span>{{ $blog->user->name }}</span></li>
                                         <li>{{ $blog->getReadingTimeAttribute() }}</li>
@@ -74,7 +74,7 @@
                             </div>
                             <ul>
                                 @foreach($categoriess as $cat)
-                                <li><a href="{{ route('cat_blog',$cat->name) }}">{{ $cat->name }}<span>{{ $cat->blogs()->count() }}</span></a></li>
+                                <li><a href="{{ route('cat_blog',$cat->slug) }}">{{ $cat->name }}<span>{{ $cat->blogs()->count() }}</span></a></li>
                                 @endforeach
                             </ul>
                         </div>

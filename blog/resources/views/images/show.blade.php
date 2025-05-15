@@ -6,18 +6,14 @@
     <div class="container">
     <div class="row d-flex">
     @foreach ($images as $image)
-    <div class="col-md-1">
-        <a href="{{ route('images.show', ['image' => str_replace('/','_', $image)]) }}" class="text-decoration-none">
-        <div class="row d-flex ">
-        <div class="col-md-3">
-        <i class="bi bi-folder-fill text-warning my-0 py-0 " style="font-size: 50px;"></i>
-        </div>
-        <div class="col-md-9">
-        <p>{{ Illuminate\Support\Str::title(Illuminate\Support\Str::limit(basename($image),8,'...')) }}</p>
-        <p><a href="{{ route('images.deleteFolder', ['image' => str_replace('/', '_', $image)]) }}" class="text-danger">Delete</a></p>
-        </div>
-        </div>
-        </a>
+    <div class="col-md-2 text-center btn btn-light">
+        <a href="{{ route('images.show', ['image' => str_replace('/','_', $image)]) }}" class="text-decoration-none ">
+            <div class="row d-flex justify-content-center">
+                <i class="bi bi-folder-fill text-warning my-0 py-0 " style="font-size: 65px;"></i>
+            </div>
+                <p class="text-wrap text-center">{{ basename($image) }}</p>
+                <p class="text-end !important"><a href="{{ route('images.deleteFolder', ['image' => str_replace('/', '_', $image)]) }}" class="text-danger"><i class="bi bi-trash"></i></a></p>
+            </a>
     </div>
     @endforeach
     </div>
