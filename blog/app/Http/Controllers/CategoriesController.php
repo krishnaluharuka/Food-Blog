@@ -14,7 +14,7 @@ class CategoriesController extends Controller
     public function index()
     {
         // return view('food_blog.categories-list');
-        $categories=Category::all();
+        $categories=Category::paginate(10);
         return view('categories.index', compact('categories'))->with('meta_title','CATEGORIES');
     }
 

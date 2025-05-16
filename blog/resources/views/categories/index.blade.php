@@ -6,7 +6,7 @@
         BLOG CATEGORIES
     </div>
     <div class="panel-body">
-    <table class="table table-hover">
+    <table class="table table-hover mb-3">
         <thead>
             <th>S.N.</th>
             <th>Category Name</th>
@@ -26,6 +26,25 @@
         </tbody>
         @endforeach
     </table>
+    <div class="pagination">
+        @if($categories->onFirstPage())
+        <!--  -->
+        @else
+            <a href="{{ $categories->previousPageUrl() }}">Prev</a>
+        @endif
+
+        @foreach($categories->getUrlRange(1,$categories->lastPage()) as $page=>$url)
+            <a href="{{ $url }}" class="{{ $page==$categories->currentPage() ? 'active' : '' }}">
+                {{ sprintf('%02d',$page) }}
+            </a>
+        @endforeach
+
+        @if($categories->onLastPage())
+
+        @else
+            <a href="{{ $categories->nextPageUrl() }}">Next</a>
+        @endif
+    </div>
     </div>
 </div>
 @endsection

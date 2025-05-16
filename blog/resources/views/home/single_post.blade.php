@@ -28,7 +28,7 @@
                         <ul>
                             <li><a href="{{ $website->fb_link }}"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="{{ $website->whatsapp_link }}"><i class="fa fa-whatsapp"></i></a></li>
-                            <li><a href=" $website->insta_link }}"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="{{ $website->insta_link }}"><i class="fa fa-instagram"></i></a></li>
                             <li><a href="{{ $website->pinterest_link }}"><i class="fa fa-pinterest"></i></a></li>
                         </ul>
                     </div>
@@ -187,13 +187,13 @@
                         <div class="single-post__author__profile__text">
                             <h4>{{ $blog->user->name }}</h4>
                             <p>{{ $blog->user->bio }}</p>
-                            <div class="single-post__author__profile__social">
+                            <!-- <div class="single-post__author__profile__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
                                 <a href="#"><i class="fa fa-google-plus"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                                 <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="single-post__comment">

@@ -7,14 +7,15 @@
     </div>
     <div class="text-end">
     <a href="{{ route('blogs.trashed') }}" class="btn btn-secondary btn-xs">
-    Trashed Blogs
-            </a>
-    </div><br>
+        Trashed Blogs
+    </a>
+    </div>
+    <br>
     <div class="panel-body">
     @if($blogs->isEmpty())
             <p>No blogs available.</p>
     @else
-    <table class="table table-responsive table-hover">
+    <table class="table table-responsive table-hover mb-3">
         <thead>
             <th>S.N.</th>
             <th>Blog Title</th>
@@ -28,7 +29,7 @@
         <tbody>
         
             <td>{{ $n++ }}</td>
-            <td>{{ $blog->title }}</td>
+            <td class="text-wrap">{{ $blog->title }}</td>
             <td><a href="{{ route('blogs.show',$blog->id) }}"  class="text-decoration-none text-dark">{{ strip_tags(\Illuminate\Support\Str::limit($blog->description,43,'...')) }}</a></td>
             <td>@if ($blog->isCurrentlyPublished())
                     <span class="badge badge-success">Published</span>
@@ -48,5 +49,23 @@
     </table>
     @endif
     </div>
+    <div class="pagination">
+        @if($blogs->onfirstPage())
+            
+        @else
+            <a href="{{ $blogs->previousPageUrl() }}">Prev</a>
+        @endif
+
+        @foreach($blogs->getUrlRange(1,$blogs->lastPage()) as $page=>$url)
+            <a href="{{ $url }}" class="{{ $page==$blogs->currentPage() ? 'active' : '' }}">{{ sprintf('%02d',$page) }}</a>
+        @endforeach
+
+        @if($blogs->onLastPage())
+            
+        @else
+            <a href="{{ $blogs->nextPageUrl() }}">Next</a>
+        @endif
+    </div>
+
 </div>
 @endsection

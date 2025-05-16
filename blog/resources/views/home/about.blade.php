@@ -13,10 +13,10 @@
                         <div class="about__right__text">
                             {!! $about->content !!}
                             <div class="about__right__text__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="{{ $website->insta_link }}"><i class="fa fa-instagram"></i></a>
+                                <a href="{{ $website->pinterest_link }}"><i class="fa fa-pinterest"></i></a>
+                                <a href="{{ $website->fb_link }}"><i class="fa fa-facebook"></i></a>
+                                <a href="{{ $website->whatsapp_link }}"><i class="fa fa-whatsapp"></i></a>
                             </div>
                         </div>
                     </div>

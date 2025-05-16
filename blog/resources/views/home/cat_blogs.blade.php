@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="categories__post__item__text">
                                     <!-- <span class="post__label">Dinner</span> -->
-                                    <h3><b><a href="{{ asset('singlepost',$blog->slug) }}">{{ $blog->title }}</a></b></h3>
+                                    <h3><b><a href="{{ route('singlepost',$blog->slug) }}">{{ $blog->title }}</a></b></h3>
                                     <ul class="post__widget">
                                         <li>by <span>{{ $blog->user->name }}</span></li>
                                         <li>{{ $blog->getReadingTimeAttribute() }}</li>
@@ -44,15 +44,13 @@
                                         style="width: 150px; height: 150px;">
                                 </div>
                                 <div class="card border border-0">
-                                    <h6>
-                                        
-                                    </h6>
-                                    
-                                    <p class="text-muted">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                    
-                                    <a href="#" class="btn btn-primary mt-2">Read more</a>
+                                    <div class="card-body">
+                                        @php
+                                            $abt=\Illuminate\Support\Str::words($about->content,40,'...');
+                                        @endphp
+                                        <p class="text-muted">{!! $abt !!}</p>
+                                        <a href="{{ route('about_page') }}" class="site-btn bg-darkmt-2">Read more</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -61,11 +59,10 @@
                                 <h6>Follow me</h6>
                             </div>
                             <div class="sidebar__item__follow__links">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-envelope-o"></i></a>
+                                <a href="{{ $website->insta_link }}"><i class="fa fa-instagram"></i></a>
+                                <a href="{{ $website->pinterest_link }}"><i class="fa fa-pinterest"></i></a>
+                                <a href="{{ $website->fb_link }}"><i class="fa fa-facebook"></i></a>
+                                <a href="{{ $website->whatsapp_link }}"><i class="fa fa-whatsapp"></i></a>
                             </div>
                         </div>
                         <div class="sidebar__item__categories">
@@ -73,7 +70,7 @@
                                 <h6>Categories</h6>
                             </div>
                             <ul>
-                                @foreach($categoriess as $cat)
+                                @foreach($categories as $cat)
                                 <li><a href="{{ route('cat_blog',$cat->slug) }}">{{ $cat->name }}<span>{{ $cat->blogs()->count() }}</span></a></li>
                                 @endforeach
                             </ul>

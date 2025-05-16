@@ -9,18 +9,18 @@
                         <div class="col-lg-6 col-sm-6">
                             <div class="categories__post__item">
                                 <div class="categories__post__item__pic smaller__large set-bg"
-                                    data-setbg="{{ $blog->images()->first() ?asset('storage/'.$blog->images()->first()->file_path):asset('favicon.ico') }}">
+                                    data-setbg="{{ $blog->images()->first() ?asset('storage/'.$blog->images()->first()->file_path):asset('blogg.jpeg') }}">
                                     <div class="post__meta">
-                                        <h4>08</h4>
-                                        <span>Aug</span>
+                                        <h4>{{ $blog->published_at->format('d') }}</h4>
+                                        <span>{{ $blog->published_at->format('M') }}</span>
                                     </div>
                                 </div>
                                 <div class="categories__post__item__text">
                                     <!-- <span class="post__label">Dinner</span> -->
-                                    <h3><b><a href="#">{{ $blog->title }}</a></b></h3>
+                                    <h3><b><a href="{{ route('singlepost',$blog->slug) }}">{{ $blog->title }}</a></b></h3>
                                     <ul class="post__widget">
                                         <li>by <span>{{ $blog->user->name }}</span></li>
-                                        <li>3 min read</li>
+                                        <li>{{ $blog->getReadingTimeAttribute() }}</li>
                                         <li>20 Comment</li>
                                     </ul>
                                     <p>{!! \Illuminate\Support\Str::limit($blog->description,115,'...') !!}</p>
@@ -38,7 +38,7 @@
                                     <img 
                                         src="{{ App\Models\User::where('role','admin')->first() 
                                             ? asset('storage/' . App\Models\User::where('role','admin')->first()->image) 
-                                            : asset('favicon.ico') }}" 
+                                            : asset('person.jpeg') }}" 
                                         alt="Admin Image" 
                                         class="rounded-circle mx-auto d-block" 
                                         style="width: 150px; height: 150px;">
@@ -49,7 +49,7 @@
                                             $abt=\Illuminate\Support\Str::words($about->content,40,'...');
                                         @endphp
                                         <p class="text-muted">{!! $abt !!}</p>
-                                        <a href="{{ route('about_page') }}" class="btn btn-dark mt-2">Read more</a>
+                                        <a href="{{ route('about_page') }}" class="site-btn bg-darkmt-2">Read more</a>
                                     </div>
                                 </div>
                             </div>
@@ -59,11 +59,10 @@
                                 <h6>Follow me</h6>
                             </div>
                             <div class="sidebar__item__follow__links">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-envelope-o"></i></a>
+                                <a href="{{ $website->insta_link }}"><i class="fa fa-instagram"></i></a>
+                                <a href="{{ $website->pinterest_link }}"><i class="fa fa-pinterest"></i></a>
+                                <a href="{{ $website->fb_link }}"><i class="fa fa-facebook"></i></a>
+                                <a href="{{ $website->whatsapp_link }}"><i class="fa fa-whatsapp"></i></a>
                             </div>
                         </div>
                         <div class="sidebar__item__categories">
@@ -79,14 +78,30 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="recipe-pagination">
-                        <a href="#" class="active">01</a>
-                        <a href="#">02</a>
-                        <a href="#">03</a>
-                        <a href="#">04</a>
-                        <a href="#">Next</a>
+                    <div class="recipe-pagination me-2">
+                        {{-- Previous Page Link --}}
+                        @if ($blogs->onFirstPage())
+                            <!-- <a href="#" class="disabled">Previous</a> -->
+                        @else
+                            <a href="{{ $blogs->previousPageUrl() }}">Prev</a>
+                        @endif
+
+                        {{-- Page Numbers --}}
+                        @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
+                            <a href="{{ $url }}" class="{{ $page == $blogs->currentPage() ? 'active' : '' }}">
+                                {{ sprintf('%02d', $page) }}
+                            </a>
+                        @endforeach
+
+                        {{-- Next Page Link --}}
+                        @if ($blogs->hasMorePages())
+                            <a href="{{ $blogs->nextPageUrl() }}">Next</a>
+                        @else
+                            <!-- <a href="#" class="disabled">Next</a> -->
+                        @endif
                     </div>
                 </div>
             </div>

@@ -24,15 +24,15 @@ class HomeController extends Controller
     }
 
     public function blog(){
-        $blogs=Blog::all();
+        $blogs=Blog::paginate(4);
         $categories=Category::all();
         return view('home.blogs',compact('blogs','categories'));
     }
 
     public function category(Category $category){
-        $blogss=$category->blogs()->get();
-        $categoriess=Category::all();
-        return view('home.cat_blogs',compact('blogss','categoriess'));
+        $blogs=$category->blogs()->paginate(4);
+        $categories=Category::all();
+        return view('home.blogs',compact('blogs','categories'));
     }
 
     public function about(){

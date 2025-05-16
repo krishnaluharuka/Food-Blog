@@ -68,6 +68,24 @@
   .toast-warning{
     background-color:#F89406
   }
+
+  .pagination a {
+    padding: 8px 15px;
+    margin: 0 5px;
+    background-color: #f2f2f2;
+    text-decoration: none;
+    font-weight: bold;
+    }
+
+    .pagination a.active {
+        background-color:rgb(56, 92, 212);
+        color: #fff;
+    }
+
+    .pagination a.disabled {
+        pointer-events: none;
+        opacity: 0.6;
+    }
 </style>
 </head>
 <body>

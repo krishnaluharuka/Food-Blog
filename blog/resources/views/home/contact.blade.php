@@ -37,7 +37,7 @@
                                 <input type="text" placeholder="Email">
                                 <input type="text" placeholder="Phone">
                                 <textarea placeholder="Message"></textarea>
-                                <button type="submit" class="site-btn bg-dark">Submit</button>
+                                <button type="submit" class="site-btn">Submit</button>
                             </form>
                         </div>
                     </div>

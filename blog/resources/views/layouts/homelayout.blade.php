@@ -127,7 +127,7 @@
                         This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                     </div>
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Created by <a href="https://https://github.com/krishnaluharuka" target="_blank">Krishna Luharuka <i class="fa fa-moon-o" aria-hidden="true"></i></a>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Created by <a href="https://github.com/krishnaluharuka" target="_blank">Krishna Luharuka <i class="fa fa-moon-o" aria-hidden="true"></i></a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
