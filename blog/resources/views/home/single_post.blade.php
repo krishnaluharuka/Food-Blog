@@ -1,7 +1,7 @@
 @extends('layouts.homelayout')
 @section('main')
 <section class="single-post spad">
-        <div class="single-post__hero set-bg" data-setbg="img/categories/single-post/single-post-hero.jpg"></div>
+        <div class="single-post__hero set-bg" data-setbg="{{ $blog->images()->first() ?asset('storage/'.$blog->images()->first()->file_path):asset('blogg.jpeg') }}"></div>
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-8">
@@ -20,16 +20,21 @@
                             <ul class="widget">
                                 <li>by {{ $blog->user->name }}</li>
                                 <li>{{ $blog->getReadingTimeAttribute() }}</li>
-                                <li>20 Comment</li>
+                                <li>{{ $blog->comments->count() }}  Comment</li>
                             </ul>
                         </div>
                     </div>
                     <div class="single-post__social__item">
+                        @php
+                            $url = urlencode(request()->fullUrl());
+                            $title = urlencode($blog->title);
+                            $image = $blog->images()->first() ? urlencode(asset('storage/'.$blog->images()->first()->file_path)) : urlencode(asset('blogg.jpeg'));
+                        @endphp
                         <ul>
-                            <li><a href="{{ $website->fb_link }}"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="{{ $website->whatsapp_link }}"><i class="fa fa-whatsapp"></i></a></li>
-                            <li><a href="{{ $website->insta_link }}"><i class="fa fa-instagram"></i></a></li>
-                            <li><a href="{{ $website->pinterest_link }}"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://api.whatsapp.com/send?text={{ $title }}%20{{ $url }}" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
+                            <!-- <li><a href="{{ $website->insta_link }}"><i class="fa fa-instagram"></i></a></li> -->
+                            <li><a href="https://www.pinterest.com/pin/create/button/?url={{ $url }}&media={{ $image }}&description={{ $title }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
                         </ul>
                     </div>
                     <div class="single-post__top__text">
@@ -198,25 +203,25 @@
                     </div>
                     <div class="single-post__comment">
                         <div class="widget__title">
-                            <h4>03 Comment</h4>
+                            <h4>Comment</h4>
                         </div>
+                        @foreach($blog->comments as $comment)
                         <div class="single-post__comment__item">
                             <div class="single-post__comment__item__pic">
-                                <img src="img/categories/single-post/comment/comment-1.jpg" alt="">
+                                <img src="{{ $comment->user->image ? asset('storage/'.$comment->user->image) :asset('person.jpeg') }}" alt="">
                             </div>
                             <div class="single-post__comment__item__text">
-                                <h5>Brandon Kelley</h5>
-                                <span>15 Aug 2017</span>
-                                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                                    magnam.</p>
-                                <ul>
+                                <h5>{{ $comment->user->name }}</h5>
+                                <span>{{ $comment->created_at->format('d M Y') }}</span>
+                                <p>{{ $comment->comment }}</p>
+                                <!-- <ul>
                                     <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
                                     <li><a href="#"><i class="fa fa-share-square-o"></i></a></li>
-                                </ul>
+                                </ul> -->
                             </div>
                         </div>
-                        <div class="single-post__comment__item single-post__comment__item--reply">
+                        @endforeach
+                        <!-- <div class="single-post__comment__item single-post__comment__item--reply">
                             <div class="single-post__comment__item__pic">
                                 <img src="img/categories/single-post/comment/comment-2.jpg" alt="">
                             </div>
@@ -247,19 +252,17 @@
                                     <li><a href="#"><i class="fa fa-share-square-o"></i></a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="single-post__leave__comment">
                         <div class="widget__title">
                             <h4>Leave a comment</h4>
                         </div>
-                        <form action="#">
-                            <div class="input-list">
-                                <input type="text" placeholder="Name">
-                                <input type="text" placeholder="Email">
-                                <input type="text" placeholder="Website">
-                            </div>
-                            <textarea placeholder="Message"></textarea>
+                        <form action="{{ route('comment.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ auth()->check() ? $authUser->id : route('login')  }}">
+                            <input type="hidden" name="blog_id" value="{{ $blog->id }}">
+                            <textarea placeholder="Message" name="comment"></textarea>
                             <button type="submit" class="site-btn">Submit</button>
                         </form>
                     </div>

@@ -45,7 +45,7 @@ class HomeController extends Controller
     }
 
     public function singlepost($slug){
-        $blog=Blog::with(['categories','images','user'])->where('slug',$slug)->firstorFail();
+        $blog=Blog::with(['categories','images','user','comments'])->where('slug',$slug)->firstorFail();
         $blog->increment('views');
         $previous = Blog::with('categories')->where('id', '<', $blog->id)->orderBy('id', 'desc')->first();
         $next = Blog::with('categories')->where('id', '>', $blog->id)->orderBy('id', 'asc')->first();

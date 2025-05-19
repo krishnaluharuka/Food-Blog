@@ -38,20 +38,10 @@ class CleanupImagesCommand extends Command
             $this->info('No blogs older than 2 days found');
         }else{
             foreach($oldBlogs as $blog){
-                foreach($blog->images as $image){
-
-                    if (Storage::disk('public')->exists($image->file_path)) {
-                        Storage::disk('public')->delete($image->file_path);
-                    }
-
-                    $image->delete();
-                }
-
-                $blogfolder=Str::slug($blog->title) ? : 'untitled';
-                $path='uploads/'.$blog->user_id.'/'.$blogfolder;
-
+                $path="uploads/".$blog->user_id."/".$blog->slug;
                 if (Storage::disk('public')->exists($path)) {
-                Storage::disk('public')->deleteDirectory($path);
+                    Storage::disk('public')->deleteDirectory($path);
+                    $this->info("Deleted images of a blog");
                 }
 
                 $blog->delete();

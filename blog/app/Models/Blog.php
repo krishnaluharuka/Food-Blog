@@ -52,6 +52,11 @@ class Blog extends Model
         return $this->hasMany('App\Models\Image');
     }
 
+
+    public function comments(){
+        return $this->hasMany('App\Models\Comment');
+    }
+
     public function getReadingTimeAttribute(){
         $word_count=str_word_count(strip_tags($this->description));
         $wordsPermin=200;

@@ -16,30 +16,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(WebsiteSeeder::class);
+        // $this->call(WebsiteSeeder::class);
 
-        User::factory()->create([
-            'name' => 'Admin Billu',
-            'email' => 'admin@gmail.com',
-            'password'=>'admin12345',
-            'image'=>'https://ui-avatars.com/api/?name=Krishna+Dev',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Admin Billu',
+        //     'email' => 'admin@gmail.com',
+        //     'password'=>'admin12345',
+        //     'image'=>'https://ui-avatars.com/api/?name=Krishna+Dev',
+        // ]);
 
-        $this->call(BlogSeeder::class);
+        // $this->call(BlogSeeder::class);
 
-        $categories=Category::factory(3)->create();
+        // $categories=Category::factory(3)->create();
 
-        $blogs=Blog::all();
+        // $blogs=Blog::all();
 
-        foreach ($blogs as $blog) {
-        $blog->categories()->attach(
-            $categories->random(rand(1, 3))->pluck('id')->toArray()
-        );
-        }
+        // foreach ($blogs as $blog) {
+        // $blog->categories()->attach(
+        //     $categories->random(rand(1, 3))->pluck('id')->toArray()
+        // );
+        // }
 
-        $this->call(ImageSeeder::class);
+        // $this->call(ImageSeeder::class);
 
-        $this->call(AboutSeeder::class);
+        // $this->call(AboutSeeder::class);
+
+        $this->call(CommentSeeder::class);
 
     }
 }

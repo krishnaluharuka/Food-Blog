@@ -10,22 +10,22 @@
         @if($trashedBlogs->isEmpty())
             <p>No trashed blogs available.</p>
         @else
-            <table class="table table-hover table-responsive">
+        @php $n=1; @endphp
+            <table class="table table-hover table-responsive mb-2">
                 <thead>
                     <tr>
                         <th>S.N.</th>
                         <th>Blog Title</th>
-                        <th>Category</th>
+                        <th>Description</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php $n=1; @endphp
                     @foreach($trashedBlogs as $blog)
                         <tr>
                             <td>{{ $n++ }}</td>
-                            <td>{{ $blog->title }}</td>
-                            <td>{{ $blog->description }}</td>
+                            <td class="text-wrap">{{ $blog->title }}</td>
+                            <td class="text-wrap">{!! Illuminate\Support\Str::limit($blog->description,100,'...') !!}</td>
                             <td>
                                
                             <form action="{{ route('blogs.restore', $blog->id) }}" method="POST" style="display:inline;">
@@ -45,6 +45,25 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="pagination">
+            @if($trashedBlogs->onFirstPage())
+
+            @else
+                <a href="{{ $trashedBlogs->previousPageUrl() }}">Prev</a>
+            @endif
+
+            @foreach($trashedBlogs->getUrlRange(1,$trashedBlogs->lastPage()) as $page=>$url)
+            <a href="{{ $url }}" class="{{ $page==$trashedBlogs->currentPage() ? 'active' : '' }}">{{ sprintf('%02d',$page) }}</a>
+            @endforeach
+
+            @if($trashedBlogs->onLastPage())
+
+            @else
+                <a href="{{ $trashedBlogs->nextPageUrl() }}">Next</a>
+            @endif
+
+
+            </div>
         @endif
     </div>
 </div>

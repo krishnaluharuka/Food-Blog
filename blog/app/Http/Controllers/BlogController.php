@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -147,10 +148,10 @@ class BlogController extends Controller
 
     public function trashed(){
         if(Auth::user()->role==='admin'){
-            $trashedBlogs = Blog::onlyTrashed()->get();
+            $trashedBlogs = Blog::onlyTrashed()->paginate(10);
         } 
         else{
-            $trashedBlogs=Blog::onlyTrashed()->where('user_id',Auth::id())->get();
+            $trashedBlogs=Blog::onlyTrashed()->where('user_id',Auth::id())->paginate(10);
         }
         return view('blogs.trash',compact('trashedBlogs'))->with('meta_title','TRASHED BLOGS');
     }
@@ -168,7 +169,15 @@ class BlogController extends Controller
     {
     $blog = Blog::withTrashed()->findOrFail($id);
     $blog->categories()->detach();
+
+    $path="uploads/".$blog->user_id."/".$blog->slug;
+    if (Storage::disk('public')->exists($path)) {
+        Storage::disk('public')->deleteDirectory($path);
+    }
+
     $blog->forceDelete();
+
     return redirect()->route('blogs.trashed')->with('success', 'Blog permanently deleted.');
     }
+    
 }

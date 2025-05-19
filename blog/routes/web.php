@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
@@ -75,6 +76,7 @@ Route::middleware('auth','role:admin')->group(function(){
     Route::resource('about',AboutController::class);
     Route::get('/edit_about',[AboutController::class,'editAbout'])->name('about.editAbout');
     Route::put('/update_about',[AboutController::class,'updateAbout'])->name('about.updateAbout');
+
 });
 
 Route::middleware(['auth'])->group(function(){
@@ -103,4 +105,6 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('images',ImageController::class);
 
     Route::get('images/{image}/deletefolder',[ImageController::class,'deleteFolder'])->name('images.deleteFolder');
+
+    Route::resource('comment',CommentController::class);
 });

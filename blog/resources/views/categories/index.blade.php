@@ -5,6 +5,8 @@
     <div class="panel-head fw-bold text-center mb-3">
         BLOG CATEGORIES
     </div>
+    <a href="{{ route('create_category') }}" class="btn btn-inverse-primary mb-4">Add Category
+            </a>
     <div class="panel-body">
     <table class="table table-hover mb-3">
         <thead>
@@ -18,10 +20,10 @@
         
             <td>{{ $n++ }}</td>
             <td>{{ $category->name }}</td>
-            <td><a href="{{ route('categories.edit',['id'=>$category->id]) }}" class="btn btn-warning btn-xs">
+            <td><a href="{{ route('categories.edit',['id'=>$category->id]) }}" class="btn btn-warning">
             Edit
             </a>&nbsp;
-            <a href="{{ route('categories.delete',['id'=>$category->id]) }}" class="btn btn-danger btn-xs">Delete
+            <a href="{{ route('categories.delete',['id'=>$category->id]) }}" class="btn btn-danger">Delete
             </a></td>
         </tbody>
         @endforeach

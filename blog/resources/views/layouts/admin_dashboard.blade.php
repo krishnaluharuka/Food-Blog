@@ -359,6 +359,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ route('categories.index') }}">
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Categories</span>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
               <i class="icon-columns menu-icon"></i>
               <span class="menu-title">Categories</span>
@@ -370,7 +376,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('categories.index') }}">Show Categories</a></li>
               </ul>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>

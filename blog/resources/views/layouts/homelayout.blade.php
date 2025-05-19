@@ -42,6 +42,35 @@
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+
+    <!-- toastr css link -->
+    <link href="{{ asset('user/css/toastr.min.css') }}" rel="stylesheet"/>
+    <!-- end toastr css link -->
+
+    <style>
+    .toast-message{
+        color:white !important;
+        font-weight: bold;
+    }
+
+    .toast-success{
+        background-color:#51A351
+    }
+
+    .toast-error{
+        background-color:#BD362F
+    }
+
+    .toast-info{
+        background-color:#2F96B4
+    }
+
+    .toast-warning{
+        background-color:#F89406
+    }
+    </style>
+
+
 </head>
 
 <body>
@@ -155,6 +184,28 @@
     <script src="{{ asset('blog/js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('blog/js/mixitup.min.js') }}"></script>
     <script src="{{ asset('blog/js/main.js') }}"></script>
+
+    <!-- toastr link -->
+    <script src="{{ asset('user/js/toastr.min.js') }}"></script>
+    <!-- toastr link end -->
+
+    <script>
+    @if(Session::has('success'))
+        toastr.success('{{ Session::get('success') }}');
+    @endif
+
+    @if(Session::has('error'))
+        toastr.error('{{ Session::get('error') }}');
+    @endif
+
+    @if(Session::has('info'))
+        toastr.info('{{ Session::get('info') }}');
+    @endif
+
+    @if(Session::has('warning'))
+        toastr.warning('{{ Session::get('warning') }}');
+    @endif
+</script>
 </body>
 
 </html>
