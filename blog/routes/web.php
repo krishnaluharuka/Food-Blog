@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
@@ -34,7 +35,10 @@ Route::get('blog_page',[HomeController::class,'blog'])->name('blog_page');
 Route::get('category/{category:slug}',[HomeController::class,'category'])->name('cat_blog');
 Route::get('about_page',[HomeController::class,'about'])->name('about_page');
 Route::get('singlepost/{slug}',[HomeController::class,'singlepost'])->name('singlepost');
-Route::get('contact',[HomeController::class,'contact'])->name('contact');
+Route::get('contact_page',[HomeController::class,'contact'])->name('contact_page');
+
+Route::resource('contact', ContactController::class);
+
 Route::middleware('auth','role:user')->group(function(){
     Route::get('user_dashboard',[UserController::class,'index'])->name('user_dashboard');
 
@@ -76,6 +80,9 @@ Route::middleware('auth','role:admin')->group(function(){
     Route::resource('about',AboutController::class);
     Route::get('/edit_about',[AboutController::class,'editAbout'])->name('about.editAbout');
     Route::put('/update_about',[AboutController::class,'updateAbout'])->name('about.updateAbout');
+
+    Route::get('contact/read/{id}', [ContactController::class, 'markRead'])->name('contact.markRead');
+
 
 });
 

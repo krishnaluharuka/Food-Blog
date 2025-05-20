@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\About;
+use App\Models\Contact;
 use App\Models\Website;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -46,5 +47,9 @@ class AppServiceProvider extends ServiceProvider
 
             $about=About::first();
             View::share('about',$about);
+
+            $unreadCount = Contact::where('is_read', false)->count();
+            View::share('unreadCount', $unreadCount);
+
     }
 }

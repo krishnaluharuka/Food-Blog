@@ -91,7 +91,7 @@
                         <li class="{{Request::routeIs('blog_page')? 'active':''}}"><a href="{{ route('blog_page') }}">Blogs</a></li>
                         <li class="{{Request::routeIs('about_page')? 'active':''}}"><a href="{{ route('about_page') }}">About Me</a></li>
                         <!-- <li><a href="categories.html">Categories</a></li> -->
-                        <li class="{{Request::routeIs('contact')? 'active':''}}"><a href="{{ route('contact') }}">Contact</a></li>
+                        <li class="{{Request::routeIs('contact_page')? 'active':''}}"><a href="{{ route('contact_page') }}">Contact</a></li>
                         @if(!Auth::user())
                         <li class="{{Request::routeIs('register')? 'active':''}}"><a href="{{ route('register') }}">Signup</a></li>
                         @else

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Website;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -14,6 +15,7 @@ class AdminController extends Controller
     public function index(){
         $user=Auth::user();
         $response = Http::get('http://ip-api.com/json/')->json();
+        // $unreadCount = Contact::where('is_read', false)->count();
         return view('admin.dashboard.index',compact('user','response'));
     }
 

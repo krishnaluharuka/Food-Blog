@@ -32,11 +32,12 @@
                                 <h2>GET IN TOUCH</h2>
                                 <p>Please enter your contact details and a short message below and I will try to answer your query as soon as possible.</p>
                             </div>
-                            <form action="#">
-                                <input type="text" placeholder="Name">
-                                <input type="text" placeholder="Email">
-                                <input type="text" placeholder="Phone">
-                                <textarea placeholder="Message"></textarea>
+                            <form action="{{ route('contact.store') }}" method="POST">
+                                @csrf
+                                <input type="text" name="name" value="{{ old('name') }}" placeholder="Name">
+                                <input type="text" name="email" value="{{ old('email') }}" placeholder="Email">
+                                <input type="text" name="contact" value="{{ old('contact') }}" placeholder="Phone">
+                                <textarea name="message" placeholder="Message">{{ old('message') }}</textarea>
                                 <button type="submit" class="site-btn">Submit</button>
                             </form>
                         </div>

@@ -103,11 +103,14 @@
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-              <i class="icon-bell mx-0"></i>
-              <span class="count"></span>
+            <a class="text-decoration-none text-dark" id="" href="{{ route('contact.index') }}" data-toggle="">
+              <i class="icon-bell postion-relative m-0 fs-4"></i><sup>
+                @if($unreadCount > 0)
+                      <span class="position-absolute top-0 start-100 translate-middle rounded-pill badge p-1 bg-primary">{{ $unreadCount }}</span>
+                @endif
+              </sup>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+            <!-- <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
@@ -148,7 +151,7 @@
                   </p>
                 </div>
               </a>
-            </div>
+            </div> -->
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">

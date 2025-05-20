@@ -12,8 +12,18 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contact=Contact::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.contact.show',compact('contact'));
     }
+
+    public function markRead($id)
+    {
+        $msg = Contact::findOrFail($id);
+        $msg->is_read = true;
+        $msg->save();
+        return redirect()->back()->with('success', 'Marked as read');
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +38,21 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contact=new Contact;
+        $request->validate([
+            'name'=>'required|max:50',
+            'email'=>'required|email',
+            'contact'=>'numeric|digits:10',
+            'message'=>'required',
+        ]);
+
+        $contact->name=$request->name;
+        $contact->email=$request->email;
+        $contact->contact=$request->contact;
+        $contact->message=$request->message;
+        $contact->save();
+
+        return back()->with('success', 'Thank you for contacting us!');
     }
 
     /**
