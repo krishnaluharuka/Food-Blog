@@ -31,7 +31,7 @@ class BlogController extends Controller
             $blogs=$this->blogservice->getAllBlogs();
         }
         else{
-            $blogs=$this->blogservice->getAllBlogs()->where('user_id',Auth::id());
+            $blogs=Blog::where('user_id',Auth::id())->paginate(10);
         }
 
         return view('blogs.show', compact('blogs'))->with('meta_title','BLOGS');
@@ -143,7 +143,7 @@ class BlogController extends Controller
     {
         $blog=Blog::findorFail($id);
         $blog->delete();
-        return redirect()->route('blogs.index');
+        return redirect()->route('blogs.index')->with('success','Blog deleted successfully');
     }
 
     public function trashed(){

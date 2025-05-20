@@ -6,7 +6,9 @@
         BLOG
     </div>
     <div class="text-end">
-    <a href="{{ route('blogs.trashed') }}" class="btn btn-secondary btn-xs">
+    <a href="{{ url()->previous() }}" class="btn btn-inverse-danger"><i class="bi bi-arrow-90deg-left"></i> Back
+            </a>
+    <a href="{{ route('blogs.trashed') }}" class="btn btn-secondary">
         Trashed Blogs
     </a>
     </div>

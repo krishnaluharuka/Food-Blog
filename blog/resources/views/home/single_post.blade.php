@@ -38,7 +38,7 @@
                         </ul>
                     </div>
                     <div class="single-post__top__text">
-                        <p>{{ $blog->description }}</p>
+                        <p>{!! $blog->description !!}</p>
                     </div>
                     <!-- <div class="single-post__recipe__details">
                         <div class="single-post__recipe__details__option">

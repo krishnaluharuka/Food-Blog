@@ -5,6 +5,8 @@
         <div class="panel-heading text-center">
             Create a New Category
         </div>
+        <a href="{{ url()->previous() }}" class="btn btn-inverse-danger mb-4"><i class="bi bi-arrow-90deg-left"></i> Back
+            </a>
         <div class="panel-body">
             <form action="{{ route('store_category',) }}" method="post">
                 {{ csrf_field() }}

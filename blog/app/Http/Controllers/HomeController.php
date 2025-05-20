@@ -51,4 +51,15 @@ class HomeController extends Controller
         $next = Blog::with('categories')->where('id', '>', $blog->id)->orderBy('id', 'asc')->first();
         return view('home.single_post',compact('blog','previous','next'));
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $blogs = Blog::where('title', 'like', "%{$query}%")
+                    ->orWhere('description', 'like', "%{$query}%")
+                    ->with('categories') // eager load category
+                    ->paginate(10);
+        $categories=Category::all();
+        return view('home.blogs', compact('blogs', 'query','categories'));
+    }
 }

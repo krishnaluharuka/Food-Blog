@@ -1,5 +1,8 @@
 @extends('layouts.homelayout')
 @section('main')
+@if(isset($query))
+    <h4 class="text-center">Results for "{{ $query }}"</h4>
+@endif
 <section class="recipe-section spad">
         <div class="container">
             <div class="row">

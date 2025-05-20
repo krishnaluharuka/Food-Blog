@@ -36,6 +36,7 @@ Route::get('category/{category:slug}',[HomeController::class,'category'])->name(
 Route::get('about_page',[HomeController::class,'about'])->name('about_page');
 Route::get('singlepost/{slug}',[HomeController::class,'singlepost'])->name('singlepost');
 Route::get('contact_page',[HomeController::class,'contact'])->name('contact_page');
+Route::get('blogs_search',[HomeController::class,'search'])->name('search');
 
 Route::resource('contact', ContactController::class);
 

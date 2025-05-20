@@ -33,7 +33,7 @@ class CategoriesController extends Controller
     {
         $category=new Category();
         $request->validate([
-            'title'=>'required|min:3',
+            'title'=>'required|min:3|unique:categories,name',
         ]);
 
         $category->name=$request->title;
@@ -66,7 +66,7 @@ class CategoriesController extends Controller
     {
         $category=Category::findorFail($id);
         $request->validate([
-            'title'=>'required|min:3',
+            'title'=>'required|min:3|unique:categories,name',
         ]);
 
         $category->name=$request->title;

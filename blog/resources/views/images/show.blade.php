@@ -11,7 +11,7 @@
             <div class="row d-flex justify-content-center">
                 <i class="bi bi-folder-fill text-warning my-0 py-0 " style="font-size: 65px;"></i>
             </div>
-                <p class="text-wrap text-center">{{ basename($image) }}</p>
+                <p class="text-wrap text-center">{{ \Illuminate\Support\Str::limit(basename($image),40) }}</p>
                 <p class="text-end !important"><a href="{{ route('images.deleteFolder', ['image' => str_replace('/', '_', $image)]) }}" class="text-danger"><i class="bi bi-trash"></i></a></p>
             </a>
     </div>

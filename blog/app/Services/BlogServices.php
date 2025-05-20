@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class BlogServices{
     public function getAllBlogs(){
-        return Blog::paginate(10);
+        return Blog::all();
     }
 
 }

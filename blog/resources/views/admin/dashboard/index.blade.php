@@ -96,16 +96,16 @@
                   <div class="card card-tale">
                     <div class="card-body">
                       <p class="mb-4">No. of Blogs</p>
-                      <p class="fs-30 mb-2">100</p>
-                      <p>ll</p>
+                      <p class="fs-30 mb-2">{{ App\Models\Blog::all()->count() }}</p>
+                      <p></p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-dark-blue">
                     <div class="card-body">
-                      <p class="mb-4">No. of Users</p>
-                      <p class="fs-30 mb-2"></p>
+                      <p class="mb-4">No. of Categories</p>
+                      <p class="fs-30 mb-2">{{ App\Models\Category::all()->count() }}</p>
                       <p></p>
                     </div>
                   </div>
@@ -115,8 +115,8 @@
                 <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                   <div class="card card-light-blue">
                     <div class="card-body">
-                      <p class="mb-4">Total Categories</p>
-                      <p class="fs-30 mb-2"></p>
+                      <p class="mb-4">No. of Images</p>
+                      <p class="fs-30 mb-2">{{ App\Models\Image::all()->count() }}</p>
                       <p></p>
                     </div>
                   </div>
@@ -124,8 +124,8 @@
                 <div class="col-md-6 stretch-card transparent">
                   <div class="card card-light-danger">
                     <div class="card-body">
-                      <p class="mb-4"></p>
-                      <p class="fs-30 mb-2">47033</p>
+                      <p class="mb-4">No. of Comment</p>
+                      <p class="fs-30 mb-2">{{ App\Models\Comment::all()->count() }}</p>
                       <p></p>
                     </div>
                   </div>
